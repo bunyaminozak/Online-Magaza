@@ -1,0 +1,674 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-sm" style="background-color:white;min-height:100%;">
+
+
+    <div class="container-fluid"></div>
+<div class="row ">
+    <div class="12 justify-content-center" >
+        <br>
+<button id="showRejectDiv" class="sidebar-popbutton cardss" >
+<div class="row">
+    <div class="col-2">
+        <img src="https://img.icons8.com/?size=512&id=15777&format=png" width="20">
+    </div>
+     <div class="col-8">
+         Kategori
+    </div>
+</div>
+
+</button>
+</div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="row my-sidebar">
+      <div class="col-12" style="margin-top:20px;">
+      <ul class="list-group list-group-flush" style="width: 250px;">
+<li class="list-group-item cardss" style="height:35px;;background-color:#454545 ">
+  <h6 style="color: white; height: 17px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">Şehir</h6>
+</li>
+                 </ul>
+          <div class="cardss" style="width: 250px;background-color:white;">
+
+              <div class="row">
+
+<span style="visibility:hidden;">as</span>
+
+                  <div class="col-12"  style="text-align: center;">
+
+
+
+<select id="city-select-side"  style="width:90%;" name="city" onchange="redirect_side()">
+
+  {% if is_şehir %}
+  <option   value="{{ şehir }}" >{{ şehir }}</option>
+  {% endif %}
+
+    <option value="0">Tüm Şehirler</option>
+   <option value="adana">Adana</option>
+  <option value="adıyaman">Adıyaman</option>
+  <option value="afyon">Afyon</option>
+  <option value="ağrı">Ağrı</option>
+  <option value="amasya">Amasya</option>
+  <option value="ankara">Ankara</option>
+  <option value="antalya">Antalya</option>
+  <option value="artvin">Artvin</option>
+  <option value="aydın">Aydın</option>
+  <option value="balıkesir">Balıkesir</option>
+  <option value="bilecik">Bilecik</option>
+  <option value="bingöl">Bingöl</option>
+  <option value="bitlis">Bitlis</option>
+  <option value="bolu">Bolu</option>
+  <option value="burdur">Burdur</option>
+  <option value="bursa">Bursa</option>
+  <option value="çanakkale">Çanakkale</option>
+  <option value="çankırı">Çankırı</option>
+  <option value="çorum">Çorum</option>
+  <option value="denizli">Denizli</option>
+  <option value="diyarbakır">Diyarbakır</option>
+  <option value="edirne">Edirne</option>
+  <option value="elazığ">Elazığ</option>
+  <option value="erzincan">Erzincan</option>
+  <option value="erzurum">Erzurum</option>
+  <option value="eskişehir">Eskişehir</option>
+  <option value="gaziantep">Gaziantep</option>
+  <option value="giresun">Giresun</option>
+  <option value="gümüşhane">Gümüşhane</option>
+  <option value="hakkari">Hakkari</option>
+  <option value="hatay">Hatay</option>
+  <option value="isparta">Isparta</option>
+  <option value="i̇çel (mersin)">İçel (Mersin)</option>
+  <option value="i̇stanbul">İstanbul</option>
+  <option value="i̇zmir">İzmir</option>
+  <option value="kars">Kars</option>
+  <option value="kastamonu">Kastamonu</option>
+  <option value="kayseri">Kayseri</option>
+  <option value="kırklareli">Kırklareli</option>
+  <option value="kırşehir">Kırşehir</option>
+  <option value="kocaeli">Kocaeli</option>
+  <option value="konya">Konya</option>
+  <option value="kütahya">Kütahya</option>
+  <option value="malatya">Malatya</option>
+  <option value="manisa">Manisa</option>
+  <option value="k.maraş">K.maraş</option>
+  <option value="mardin">Mardin</option>
+  <option value="muğla">Muğla</option>
+  <option value="muş">Muş</option>
+  <option value="nevşehir">Nevşehir</option>
+  <option value="niğde">Niğde</option>
+  <option value="ordu">Ordu</option>
+  <option value="rize">Rize</option>
+  <option value="sakarya">Sakarya</option>
+  <option value="samsun">Samsun</option>
+  <option value="siirt">Siirt</option>
+  <option value="sinop">Sinop</option>
+  <option value="sivas">Sivas</option>
+  <option value="tekirdağ">Tekirdağ</option>
+  <option value="tokat">Tokat</option>
+  <option value="trabzon">Trabzon</option>
+  <option value="tunceli">Tunceli</option>
+  <option value="şanlıurfa">Şanlıurfa</option>
+  <option value="uşak">Uşak</option>
+  <option value="van">Van</option>
+  <option value="yozgat">Yozgat</option>
+  <option value="zonguldak">Zonguldak</option>
+  <option value="aksaray">Aksaray</option>
+  <option value="bayburt">Bayburt</option>
+  <option value="karaman">Karaman</option>
+  <option value="kırıkkale">Kırıkkale</option>
+  <option value="batman">Batman</option>
+  <option value="şırnak">Şırnak</option>
+  <option value="bartın">Bartın</option>
+  <option value="ardahan">Ardahan</option>
+  <option value="iğdır">Iğdır</option>
+  <option value="yalova">Yalova</option>
+  <option value="karabük">Karabük</option>
+  <option value="kilis">Kilis</option>
+  <option value="osmaniye">Osmaniye</option>
+  <option value="düzce">Düzce</option>
+</select>
+
+
+
+          </div>
+
+<span style="visibility:hidden;">as</span>
+            </div>
+          </div>
+<span style="visibility:hidden;">as</span>
+
+
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white " style="width: 250px;background-color:grey">
+
+
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+
+    </a>
+
+    <ul class="nav nav-pills flex-column " style="height:450px;">
+
+
+{% for a in  kategori_order[::-1] %}
+        {% if a != 0 %}
+
+<li class="nav-item" style="padding-left:{{ '50' if loop.index == 3 else '30' if loop.index == 2 else '0' }}px;margin-bottom:5px;">
+<a href="{{ url_for('kategori', kategori=a.name ,city=none if not is_şehir else şehir , search_query=none if not is_search else search ) }}" class="nav-link active side-bar" aria-current="page" style="padding-right:50px;background-color:white;">
+    <img src="https://img.icons8.com/?size=512&id=15777&format=png" width="30"> <span style="margin-right:0px;color:black;">{{ a.name }}</span>
+        </a>
+      </li>
+
+
+        {% endif %}
+
+        {% endfor %}
+
+
+
+
+
+<hr>
+
+
+
+
+
+{% for ufak in ufak_kategori %}
+
+
+        <li class="nav-item" style="width:220px;margin-left:5px;">
+<!--            kategori içindeki kategori unutma -->
+
+        <a href="{{ url_for('kategori', kategori=ufak ,city=none if not is_şehir else şehir , search_query=none if not is_search else search ) }}" class="nav-link active side-bar" aria-current="page" style="padding-right:10px;background-color:#EEEEEE;">
+
+          <svg class="bi " width="0" height="0"><use xlink:href="#home" ></use></svg>
+
+        <span style="margin-right:0px;color:black;">{{ ufak }}</span>
+        </a>
+        <br>
+      </li>
+
+
+{% endfor %}
+
+
+
+
+
+
+    </ul>
+
+
+  </div>
+      </div>
+
+
+
+
+
+
+  </div>
+
+
+
+    <div class="row">
+      <div class="col-3 col-lg-3 col-sm-4 my-div" style="margin-top:20px;">
+
+          <ul class="list-group list-group-flush" style="width: 250px;">
+<li class="list-group-item cardss" style="height:35px;;background:#454545 ">
+  <h6 style="color: white; height: 17px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">Şehir</h6>
+</li>
+                 </ul>
+          <div class="cardss" style="width: 250px;background-color:white;">
+
+              <div class="row">
+
+<span style="visibility:hidden;">as</span>
+
+                  <div class="col-12"  style="text-align: center;">
+
+
+
+<select id="city-select"  style="width:90%;" name="city" onchange="redirect()">
+
+  {% if is_şehir %}
+  <option   value="{{ şehir }}" >{{ şehir }}</option>
+
+
+  {% endif %}
+
+    <option value="0">Tüm Şehirler</option>
+   <option value="adana">Adana</option>
+  <option value="adıyaman">Adıyaman</option>
+  <option value="afyon">Afyon</option>
+  <option value="ağrı">Ağrı</option>
+  <option value="amasya">Amasya</option>
+  <option value="ankara">Ankara</option>
+  <option value="antalya">Antalya</option>
+  <option value="artvin">Artvin</option>
+  <option value="aydın">Aydın</option>
+  <option value="balıkesir">Balıkesir</option>
+  <option value="bilecik">Bilecik</option>
+  <option value="bingöl">Bingöl</option>
+  <option value="bitlis">Bitlis</option>
+  <option value="bolu">Bolu</option>
+  <option value="burdur">Burdur</option>
+  <option value="bursa">Bursa</option>
+  <option value="çanakkale">Çanakkale</option>
+  <option value="çankırı">Çankırı</option>
+  <option value="çorum">Çorum</option>
+  <option value="denizli">Denizli</option>
+  <option value="diyarbakır">Diyarbakır</option>
+  <option value="edirne">Edirne</option>
+  <option value="elazığ">Elazığ</option>
+  <option value="erzincan">Erzincan</option>
+  <option value="erzurum">Erzurum</option>
+  <option value="eskişehir">Eskişehir</option>
+  <option value="gaziantep">Gaziantep</option>
+  <option value="giresun">Giresun</option>
+  <option value="gümüşhane">Gümüşhane</option>
+  <option value="hakkari">Hakkari</option>
+  <option value="hatay">Hatay</option>
+  <option value="isparta">Isparta</option>
+  <option value="i̇çel (mersin)">İçel (Mersin)</option>
+  <option value="i̇stanbul">İstanbul</option>
+  <option value="i̇zmir">İzmir</option>
+  <option value="kars">Kars</option>
+  <option value="kastamonu">Kastamonu</option>
+  <option value="kayseri">Kayseri</option>
+  <option value="kırklareli">Kırklareli</option>
+  <option value="kırşehir">Kırşehir</option>
+  <option value="kocaeli">Kocaeli</option>
+  <option value="konya">Konya</option>
+  <option value="kütahya">Kütahya</option>
+  <option value="malatya">Malatya</option>
+  <option value="manisa">Manisa</option>
+  <option value="k.maraş">K.maraş</option>
+  <option value="mardin">Mardin</option>
+  <option value="muğla">Muğla</option>
+  <option value="muş">Muş</option>
+  <option value="nevşehir">Nevşehir</option>
+  <option value="niğde">Niğde</option>
+  <option value="ordu">Ordu</option>
+  <option value="rize">Rize</option>
+  <option value="sakarya">Sakarya</option>
+  <option value="samsun">Samsun</option>
+  <option value="siirt">Siirt</option>
+  <option value="sinop">Sinop</option>
+  <option value="sivas">Sivas</option>
+  <option value="tekirdağ">Tekirdağ</option>
+  <option value="tokat">Tokat</option>
+  <option value="trabzon">Trabzon</option>
+  <option value="tunceli">Tunceli</option>
+  <option value="şanlıurfa">Şanlıurfa</option>
+  <option value="uşak">Uşak</option>
+  <option value="van">Van</option>
+  <option value="yozgat">Yozgat</option>
+  <option value="zonguldak">Zonguldak</option>
+  <option value="aksaray">Aksaray</option>
+  <option value="bayburt">Bayburt</option>
+  <option value="karaman">Karaman</option>
+  <option value="kırıkkale">Kırıkkale</option>
+  <option value="batman">Batman</option>
+  <option value="şırnak">Şırnak</option>
+  <option value="bartın">Bartın</option>
+  <option value="ardahan">Ardahan</option>
+  <option value="iğdır">Iğdır</option>
+  <option value="yalova">Yalova</option>
+  <option value="karabük">Karabük</option>
+  <option value="kilis">Kilis</option>
+  <option value="osmaniye">Osmaniye</option>
+  <option value="düzce">Düzce</option>
+</select>
+
+
+
+          </div>
+
+<span style="visibility:hidden;">as</span>
+            </div>
+          </div>
+<span style="visibility:hidden;">as</span>
+
+
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white " style="width: 250px; background-color:grey">
+
+
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+
+    </a>
+
+    <ul class="nav nav-pills flex-column " style="height:450px;">
+
+
+{% for a in  kategori_order[::-1] %}
+        {% if a != 0 %}
+
+<li class="nav-item" style="padding-left:{{ '50' if loop.index == 3 else '30' if loop.index == 2 else '0' }}px;margin-bottom:5px;">
+<a href="{{ url_for('kategori', kategori=a.name ,city=none if not is_şehir else şehir , search_query=none if not is_search else search ) }}" class="nav-link active side-bar" aria-current="page" style="padding-right:50px;background-color:white;">
+    <img src="https://img.icons8.com/?size=512&id=15777&format=png" width="30"> <span style="margin-right:0px;color:black;">{{ a.name }}</span>
+        </a>
+      </li>
+
+
+        {% endif %}
+
+        {% endfor %}
+
+
+
+
+
+<hr>
+
+<!--          Ufak KATGORİLER-->
+{% for ufak in ufak_kategori %}
+
+
+        <li class="nav-item" style="width:220px;margin-left:5px;">
+<!--            kategori içindeki kategori unutma -->
+
+        <a href="{{ url_for('kategori', kategori=ufak ,city=none if not is_şehir else şehir , search_query=none if not is_search else search ) }}" class="nav-link active side-bar" aria-current="page" style="padding-right:10px;background-color:#EEEEEE;">
+
+          <svg class="bi " width="0" height="0"><use xlink:href="#home" ></use></svg>
+
+        <span style="margin-right:0px;color:black;">{{ ufak }}</span>
+        </a>
+        <br>
+      </li>
+
+
+{% endfor %}
+
+
+
+
+
+
+    </ul>
+
+
+
+  </div>
+      </div>
+
+
+
+
+
+  <div class="col-8">
+
+
+      <div class="container-md ürün-container" style="margin-top: -130px;">
+
+        <div class="container" >
+ {% if is_şehir %}
+            <div class="container-fluid" >
+               <div class="row justify-content-center posts-row">
+
+                   <div class="col-12" style="margin-bottom:-10px;">
+              <div class="cardss" style="text-align:left;">
+
+                              <h6 style="color:black;margin:15px 0px;"><span style="visibility:hidden">_</span> Şehir <span style="font-weight:bold;"> : '{{ şehir }}'</span> </h6>
+                   {% if is_search %}
+                              <h6 style="color:black;margin:15px 0px;"><span style="visibility:hidden">_</span> Arama: <span style="font-weight:bold;"> : '{{ search }}'</span> </h6>
+                              {% endif %}
+
+              </div>
+                       </div>
+                  </div>
+</div>
+
+
+          {% endif %}
+
+ {% if kategori_urun_bulunamadi %}
+              <div class="container-fluid" >
+               <div class="row justify-content-center posts-row" >
+
+                   <div class="col-12" >
+              <div style="background-color:#F9F5F6;border-radius:15px;padding:1px;box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px, rgba(0, 0, 0, 0.1) 0px 7px 5px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; }">
+
+                  <h6 style="color:black;margin:15px 0px;"><span style="font-weight:bold;"><span style="visibility:hidden">_</span>{% for a in  kategori_order[::-1] %} {% if a != 0 %} {{ a.name }} / {% endif %} {% endfor %} </span> Kategoride İlan Bulunamadı</h6>
+
+              </div>
+                       </div>
+                  </div>
+ </div>
+              {% else %}
+            <div class="container-fluid">
+               <div class="row justify-content-center posts-row">
+
+                   <div class="col-12">
+              <div style="text-align:left; background-color:#F9F5F6;border-radius:15px;padding:1px;box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px, rgba(0, 0, 0, 0.1) 0px 7px 5px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; }">
+
+      <h6 style="color:black;margin:15px 0px;"><span style="visibility:hidden">_</span>Kategori:<span style="font-weight:bold;"> {% for a in  kategori_order[::-1] %} {% if a != 0 %} {{ a.name }} / {% endif %} {% endfor %} </span> </h6>
+
+              </div>
+                       </div>
+                  </div>
+</div>
+<br>
+  {% endif %}
+
+
+
+          <div class="row justify-content-center posts-row">
+
+            {% for post in posts %}
+            <div class="col-lg-3 col-md-4 mb-4 col-sm-6" style="height: 160px;">
+             <form action="/ilan-detay" method="POST" style="margin-top:5px ;">
+
+  <input type="hidden" name="post_id" value="{{ post.id }}">
+ <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+
+                <div class="card h-100 cardss">
+{% if post.images[0]  %}
+                    <div class="img-wrapper">
+                      <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" onclick="showImageInCarousel({{ loop.index0 }})">
+                    </div>
+{% else %}
+            <div class="img-wrapper">
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+            </div>
+{% endif %}
+                  <h6 class="card-title text-center" style="white-space: nowrap;overflow:hidden;padding-bottom:7px;padding-top:2px;padding-left:5px;text-overflow: ellipsis">{{ post.title }}</h6>
+                </div>
+              </a>
+</form>
+            </div>
+            {% endfor %}
+              <hr>
+               <div class="container-fluid" style="background-color: #EEEEE;">
+  <form method="POST" action="" id="myForm">
+    <div class="row justify-content-center">
+      {% set start_index = ((page // 10) * 10) + 1 %}
+      {% set end_index = start_index + 9 %}
+      {% for a in range(start_index, start_index + 10) %}
+        {% if a <= nav_number %}
+          <div class="col-1 page-nav-button">
+            <input type="submit" name="page" class="button-12" value="{{ a }}">
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="row justify-content-center" >
+       {% if page != 0 %}
+        <div class="col-2 page-nav-button">
+          <button type="submit" name="page" class="button-12" value="{{ page - 1 }}">
+            <img src="https://img.icons8.com/?size=512&id=37587&format=png" width="20">
+          </button>
+        </div>
+      {% endif %}
+      {% if nav_number > page + 1 %}
+        <div class="col-2 page-nav-button">
+          <button type="submit" name="page" class="button-12" value="{{ page + 2 }}">
+            <img src="https://img.icons8.com/?size=512&id=37586&format=png" width="20">
+          </button>
+        </div>
+      {% endif %}
+
+    </div>
+  </form>
+</div>
+
+          </div>
+
+<br>
+
+
+<h4 style="visibility:hidden;">asdsa</h4>
+
+        </div>
+      </div>
+    </div>
+  </div>
+      <br><br>
+</div>
+
+<script>
+
+     const button = document.querySelector('.sidebar-popbutton');
+    const sidebar = document.querySelector('.my-sidebar');
+
+    button.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+
+function redirect() {
+  var selectElement = document.getElementById("city-select");
+  var selectedOption = selectElement.value;
+
+  if (selectedOption) {
+    var currentUrl = window.location.href;
+    var hasQuery = currentUrl.includes("?");
+    var urlParts = currentUrl.split("-");
+    var pattern = /\/kategori-[\w-]+-([\w-]+)/;
+
+
+    var match = currentUrl.match(pattern);
+
+    if (hasQuery && match && match.length > 1) {
+      var lastItem = match[1];
+        currentUrl = currentUrl.replace(lastItem, selectedOption);
+    }
+
+    if (hasQuery) {
+      if (urlParts.length === 4 && currentUrl.endsWith("-")) {
+        urlParts[urlParts.length - 3] = selectedOption;
+        currentUrl = urlParts.join("-");
+      } else if (urlParts.length === 3 && !currentUrl.endsWith("-")) {
+        urlParts[2] = selectedOption;
+        currentUrl = urlParts.join("-");
+      }
+      else if (urlParts.length === 2 && !currentUrl.endsWith("-")) {
+        urlParts_ = currentUrl.split("?");
+        currentUrl = urlParts_[0] + "-" +  selectedOption + "?" + urlParts_[1] ;
+      }
+      else if (urlParts.length === 4 && !currentUrl.endsWith("-")) {
+        urlParts[urlParts.length - 1] = selectedOption;
+        currentUrl = urlParts.join("-");
+      }
+
+
+    } else {
+      if (urlParts.length === 4) {
+        urlParts[urlParts.length - 2] = selectedOption;
+      } else if (urlParts.length === 3 && !currentUrl.endsWith("-")) {
+        urlParts[2] = selectedOption;
+      } else if (urlParts.length === 2 || urlParts.length === 1) {
+        currentUrl = currentUrl + "-" + selectedOption;
+      }
+
+      if (urlParts.length === 2) {
+        urlParts[2] = selectedOption;
+      }
+
+      currentUrl = urlParts.join("-");
+    }
+
+    window.location.href = currentUrl;
+  }
+}
+
+
+
+
+
+
+function redirect_side() {
+  var selectElement = document.getElementById("city-select-side");
+  var selectedOption = selectElement.value;
+
+  if (selectedOption) {
+    var currentUrl = window.location.href;
+    var hasQuery = currentUrl.includes("?");
+    var urlParts = currentUrl.split("-");
+    var pattern = /\/kategori-[\w-]+-([\w-]+)/;
+
+
+    var match = currentUrl.match(pattern);
+
+    if (hasQuery && match && match.length > 1) {
+      var lastItem = match[1];
+        currentUrl = currentUrl.replace(lastItem, selectedOption);
+    }
+
+    if (hasQuery) {
+      if (urlParts.length === 4 && currentUrl.endsWith("-")) {
+        urlParts[urlParts.length - 3] = selectedOption;
+        currentUrl = urlParts.join("-");
+      } else if (urlParts.length === 3 && !currentUrl.endsWith("-")) {
+        urlParts[2] = selectedOption;
+        currentUrl = urlParts.join("-");
+      }
+      else if (urlParts.length === 2 && !currentUrl.endsWith("-")) {
+        urlParts_ = currentUrl.split("?");
+        currentUrl = urlParts_[0] + "-" +  selectedOption + "?" + urlParts_[1] ;
+      }
+      else if (urlParts.length === 4 && !currentUrl.endsWith("-")) {
+        urlParts[urlParts.length - 1] = selectedOption;
+        currentUrl = urlParts.join("-");
+      }
+
+
+    } else {
+      if (urlParts.length === 4) {
+        urlParts[urlParts.length - 2] = selectedOption;
+      } else if (urlParts.length === 3 && !currentUrl.endsWith("-")) {
+        urlParts[2] = selectedOption;
+      } else if (urlParts.length === 2 || urlParts.length === 1) {
+        currentUrl = currentUrl + "-" + selectedOption;
+      }
+
+      if (urlParts.length === 2) {
+        urlParts[2] = selectedOption;
+      }
+
+      currentUrl = urlParts.join("-");
+    }
+
+    window.location.href = currentUrl;
+  }
+}
+
+
+</script>
+
+
+
+
+{% include 'footer.html' %}
+    <br class="mobile-br">
+{% endblock %}

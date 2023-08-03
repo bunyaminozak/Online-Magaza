@@ -1,0 +1,363 @@
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Takas-Site</title>
+      <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/6895/6895182.png">
+
+<!--Chatin Kabolduğu Kişilerimin Açık Olduğu Seneryo-->
+ {% if not is_speaking %}
+    <style>
+@media (max-width: 774px) {
+.complete-message-container{
+  display: none;}
+
+.kişilerim-container{
+  width: 500px;}
+  }
+
+  }
+    </style>
+
+    <!--Chatin Kabolduğu Kişilerimin Açık Olduğu Seneryo-->
+
+
+<!--Kişilerimin Kabolduğu Chatin Açık Olduğu Seneryo-->
+     {% elif is_speaking  %}
+      <style>
+@media (max-width: 774px) {
+.kişilerim-container{
+  display: none;}
+
+  }
+    </style>
+  {% endif %}
+<!--Kişilerimin Kabolduğu Chatin Açık Olduğu Seneryo-->
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+</head>
+
+<body style="background-color:#374040">
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<script type="text/javascript">
+var socket = io();
+
+socket.on('connect', function () {
+    socket.emit('join', {
+        room: "{{ room }}"
+    });
+
+$('#myForm').on('submit', function(e) {
+    e.preventDefault();
+    let to_user_id = $('input.username').val();
+    let message = $('input.message').val();
+    let user_id = $('input.user_id').val();
+    let currentTime = moment().format('hh:mm');
+    socket.emit('my event', {
+        to_user_id: to_user_id,
+        message: message,
+        user_id: user_id,
+        time: currentTime,
+        room : "{{ room }}"
+    });
+    $('input.message').val('').focus();
+});
+
+
+});
+
+socket.on('my response', function(msg) {
+    console.log(msg);
+    if (typeof msg.message !== 'undefined') {
+        $('h3').remove();
+        var messageClass = msg.user_id === '{{ current_user_id }}' ? 'real-time-message-me' : 'real-time-message-other';
+
+
+        if (msg.user_id === '{{ current_user_id }}') {
+
+            var messageContent = '<div class="row" style="text-align:right;"><div class="col-4"></div><div class="col-8" ><div class="' + messageClass + ' row" ><div class="col-10" style="text-align: left;"><b style="color: black;font: 16px Agdasima, sans-serif">' + msg.message + '</b></div><div class="col-12" style="color: #413F42;text-align:right">' + msg.time + '</div></div></div></div>';
+
+            messageContent += '<br>';
+            $('div.message_holder').append(messageContent);
+        } else {
+
+            var messageContent = '<div class="row" style="text-align:left;"><div class="col-8"><div class="' + messageClass + ' row" style="background-color:white;"><div class="col-10" style="text-align: left;"><b style="color: black;font: 16px Agdasima, sans-serif">' + msg.message + '</b></div><div class="col-12" style="color: #413F42;text-align:right">' + msg.time + '</div></div></div><div class="col-4"></div></div>';
+
+            messageContent += '<br>';
+            $('div.message_holder').append(messageContent);
+        }
+
+        $('div.message-history').scrollTop($('div.message-history')[0].scrollHeight);
+    }
+});
+
+
+
+
+
+</script>
+<nav class="navbar  " style="height:70px;background-color:#2B2B2B;">
+  <div class="container-sm" style="margin-top:-10px">
+    <span class="navbar-brand sm-0 " style="margin-left:5%;"><a href="/" style="color:black;"> <img class="logo-image" width="60" src="https://cdn-icons-png.flaticon.com/512/6895/6895182.png"> </a></span>
+
+      <form class="d-flex" role="search" style="color:white;" action="{{ url_for('home') }}" method="GET">
+
+ <input class="form-control me-2 search-bar" name="search" type="search" placeholder="Search" aria-label="Search" style="background-color:#EFF5F5;color:black;">
+      <span>  <button type="submit" class="btn btn-info search-button" style="height:38px;">
+    <img src="https://img.icons8.com/?size=512&id=47830&format=png" width="25">
+  </button></span>
+
+    </form>
+
+
+
+       <span class="navbar-brand mb-3 mb-lg-1 navbar-profile-img"><a class="nav-link" href="{{ '/ilan'  if is_user else '/login_choise' }}">
+          <img class="login-image" src="https://img.icons8.com/?size=512&id=2yC9SZKcXDdX&format=png" width="50"  style="background-color:#F9F5F6;border-radius:40px;">
+      </a></span>
+       <span class="navbar-brand mb-3 mb-lg-1 navbar-profile-img"><a  class="nav-link" href="{{ '/choose_category' if is_user else '/login_choise' }}    ">
+          <img class="login-image"  src="https://cdn-icons-png.flaticon.com/512/8371/8371357.png" width="53">
+      </a></span>
+
+</nav>
+
+
+
+
+<div class="container-fluid top-bar fixed-bottom my-bottom-bar" id="top-bar">
+
+
+    <div class="container-sm w-100 p-1 pb-1 d-flex justify-content-center" >
+        <div class="row">
+
+<div class="col-1" style="margin-left:55px;margin-right:25px;"  >
+<span><a href="/"><img style="background-color:;border-radius:10px;" src="	https://cdn-icons-png.flaticon.com/512/553/553376.png
+"  width="35"></a></span>
+    </div>
+
+        <div class="col-1" style="margin-right:25px;" >
+<span><a href="{{ '/Takas-Tekflifleri?take=True'   if is_user else '/login_choise' }}"><img style="background-color:;border-radius:10px;" src="https://img.icons8.com/external-goofy-solid-kerismaker/256/external-Deal-business-goofy-solid-kerismaker.png" width="35"></a></span>
+
+    </div>
+
+    <div class="col-1" style="margin-right:25px;">
+<span><a href="{{ '/choose_category' if is_user else '/login_choise' }}">
+
+<img class="" src="https://cdn-icons-png.flaticon.com/512/8371/8371357.png" width="37" style="">
+</a></span>
+    </div>
+
+                    <div class="col-1" style="margin-right:25px;" >
+<span><a href="{{ url_for( 'sessions' )  if is_user else '/login_choise' }}"><img style="background-color:;border-radius:10px;" src="	https://cdn-icons-png.flaticon.com/512/3721/3721843.png" width="35"></a></span>
+
+    </div>
+
+
+        <div class="col-1"  >
+<span><a href="{{ url_for( 'ilan' )  if is_user else '/login_choise' }}"><img style="background-color:;border-radius:10px;" src="	https://cdn-icons-png.flaticon.com/512/64/64572.png" width="35"></a></span>
+
+    </div>
+
+
+
+
+</div>
+
+    </div>
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+<div class="container-fluid ">
+
+
+
+
+
+    <div class="row chat-row">
+<div class="col-lg-4 col-md-4 col-sm-10  col-12 my-diva" style="padding-top: 20px; margin: 0 auto;">
+  <!-- Your navigation list code -->
+
+    <div class="text-white  kişilerim-container" style="">
+
+
+    <a href="/" class=" text-white text-decoration-none">
+
+    </a>
+
+    <ul class="nav nav-pills flex-column ">
+      <li class="nav-item cardss">
+        <a   class="nav-link active side-bar" aria-current="page" style="padding-right:40px;background: rgb(255,242,85);
+background: linear-gradient(328deg, rgba(255,242,85,1) 0%, rgba(102,198,49,1) 0%, rgba(99,162,179,1) 100%, rgba(96,124,133,1) 100%, rgba(82,166,78,1) 100%, rgba(92,157,176,1) 100%);color:black;font-weight:500;">
+
+
+<img src="https://img.icons8.com/?size=512&id=rM6phXyaFqLy&format=png" width="30">
+        <span style="margin-right:0px;color:" >Kişilerim</span>
+
+        </a>
+      </li>
+    </ul>
+
+<br>
+{% for kişi in kişilerim %}
+<form action="/chat" method="POST" style="margin-bottom: -15;">
+    <ul class="nav nav-pills flex-column">
+        <input type="hidden" name="user_id_FORM" value="{{ current_user.id }}">
+        <input type="hidden"  name="to_user_id_FORM" value="{{ kişi.id }}">
+  <div class="container-fluid" style="padding:12px;" >
+        <div class="row"  style="padding:0px 10px;">
+        <button type="submit" class="nav-link active side-bar cardss" style="padding-right:50px;background-color:white;">
+            <span style="font-size: 16px; margin-right: -20px;color:black;">
+                {{ kişi.name }} {{ kişi.last_name }}
+            </span>
+        </button>
+</div>
+    </div>
+    </ul>
+</form>
+{% endfor %}
+
+
+
+
+
+<br><br>
+  </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="col-lg-8 col-md-8 col-sm-0 col-12 complete-message-container" style="margin-top: 20px;">
+
+
+<div class="row ">
+    <div class="col-12" style=" border-left: 4px solid white;">
+        <h3 style="color: red; font-size: 30px;display:none;">No message yet..</h3>
+       <div class="message-container chat-container" style="border:solid 1px;">
+  <div class="message-history  " id="message-history" >
+      <div  style="text-align:center;">
+      {% if not is_speaking %}
+       <img class="is_speaking" src="https://cdn-icons-png.flaticon.com/512/2672/2672915.png">
+      {% endif %}
+          </div>
+            {% for message in messages_history %}
+            <br>
+            {% if message.user_id == user_id %}
+             <div class="row message">
+                <div class="col-4"></div>
+                <div class="col-8" style="text-align:right;padding-right:45px;" >
+
+   <div class="row my-message zz " >
+  <div class="col-10" style="padding-left: 6px;" >
+    <div class="message-box"  >
+      <p class="message-text" >{{ message.content }}</p>
+    </div>
+  </div>
+  <div class="col-12 message-time-col" style="">
+    <p class="message-time" style="color:#413F42;">{{ message.timestamp.strftime('%I:%M') }}</p>
+  </div>
+</div>
+
+                </div>
+            </div>
+            {% elif message.to_user_id == current_user_id  %}
+           <div class="row message" >
+                    <div class="col-8">
+   <div class="row my-message other-message" style="text-align:left;margin-right:30px;">
+  <div class="col-10 " style="padding-left: 6px;">
+    <div class="message-box">
+      <p class="message-text ">{{ message.content }}</p>
+    </div>
+  </div>
+  <div class="col-12 message-time-col">
+    <p class="message-time" style="color:#413F42;">{{ message.timestamp.strftime('%I:%M') }}</p>
+  </div>
+</div>
+
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+<br>
+
+<!-- Yazılan Mesaj Sayfa Refresh Olmadanm Görünümünü Değiştirmek İÇİn-->
+<!-- Olmaz ise history bizim mesajlar kısmı ile oyna  oda olmaz ise java script de oyna-->
+
+
+
+<!--  <div class="row" style="text-align: center;padding-right:30px;">-->
+
+<!--            <div class="col-8" style="margin-left:0px;" >-->
+<!--                <div class="message_holder_user_2 ">-->
+<!--                </div>-->
+<!-- <div class="col-4"></div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+<div class="row" style="text-align: center; padding-left: 11px; max-width: 100%;">
+    <div class="col-12" style="margin-left: 0px;">
+        <div class="message_holder"></div>
+    </div>
+</div>
+
+
+<!-- Yazılan Mesaj Sayfa Refresh Olmadanm Görünümünü Değiştirmek İÇİn-->
+
+    </div>
+</div>
+
+<div class="message-input-container">
+  <form id="myForm" action=""  method="POST">
+    <input type="text" class="username" value="{{ to_user_id }}" style="display:none;">
+    <input type="text" class="user_id" value="{{ user_id }}" style="display:none;">
+      {% if is_speaking %}
+    <input type="text" class="message" placeholder="Messages" required="1">
+    <input style="color:white;" type="submit">
+       {% endif %}
+</form>
+        </div>
+</div>
+</div>
+
+
+
+</div>
+
+
+
+
+<script>
+    var messageHistory = document.getElementById("message-history");
+    messageHistory.scrollTop = messageHistory.scrollHeight;
+
+
+
+
+
+</script>
+
+</body>
+
+</html>

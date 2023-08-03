@@ -1,0 +1,686 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-sm post_detail_container "   >
+
+
+
+    <div class="col-lg-6 col-md-6 w-100 p-4 pb-4 d-flex justify-content-center">
+
+
+    <div class="row ilan-row" style="
+    ">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12 ilan-başlık">
+        <h5 style="color:black;font-weight:500;font-family: 'Fira Sans', sans-serif;">{{post.title}}</h5>
+        </div>
+ <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+        <h5 style="{{  'display:none;' if post.user_id != current_user.id }}; color:#EA906C;">/Kendi İlanın</h5>
+        </div>
+         </div>
+      <div class="col-md-6 image-container">
+
+
+        <div class="image-container">
+          <div class="row">
+            <div class="col" style="padding-bottom: 0px;">
+              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <!-- Carousel inner -->
+                <div class="carousel-inner">
+
+
+
+
+
+
+             {% if post_image_sayi != 0 %}
+                  {% for image in images %}
+                  <div class="carousel-item asd {% if loop.index == 1 %}active{% endif %}">
+                    <img src="data:image/png;base64,{{ image.data|b64encode }}" class="d-block w-100" alt="...">
+                  </div>
+                    {% endfor %}
+
+                    {% else %}
+
+                   <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+
+
+                    {% endif %}
+                </div>
+                <!-- Carousel controls -->
+                <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon a cardss" style="background-color:black;" aria-hidden="true"></span>
+                  <span class="visually-hidden ">Previous</span>
+                </button>
+                <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon a cardss" aria-hidden="true" style="background-color:black;"></span>
+                  <span class="visually-hidden ">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+
+<div class="row mt-3">
+  <div class="col">
+    <div class="image-preview-carousel">
+      <div class="image-preview">
+          {% if post_image_sayi != 0%}
+        {% for image in images %}
+
+        <img src="data:image/png;base64,{{ image.data|b64encode }}" class="img-thumbnail" alt="Preview">
+
+          {% endfor %}
+          {% else %}
+
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+
+
+          {% endif %}
+      </div>
+      <div class="text-center mt-2 control-buttons" >
+      <button class="carousel-control-prev cardss " type="button" onclick="prevPreviewPage()">◁</button>
+      <button class="carousel-control-next cardss " type="button" onclick="nextPreviewPage()">▷</button>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+        </div>
+      </div>
+
+<div class="container-divide-mobil" >
+<hr style="border:solid 3px black">
+</div>
+
+<div class="col-md-3 cardss ürün-bilgiler-container" >
+
+      <ul class="list-group list-group-flush">
+<li class="list-group-item cardss" style="background: rgb(255,242,85);
+background: linear-gradient(328deg, rgba(255,242,85,1) 0%, rgba(102,198,49,1) 0%, rgba(99,162,179,1) 100%, rgba(96,124,133,1) 100%, rgba(82,166,78,1) 100%, rgba(92,157,176,1) 100%);">
+  <h6 style="color: black; height: 17px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">Ürün-Bilgileri</h6>
+</li>
+                 </ul>
+<br>
+    <div style="padding:0px 6px;">
+
+  {% for attr_name in post.__table__.columns.keys() %}
+    {% if attr_name != 'data' and attr_name != 'content'  and attr_name != 'ilçe' and attr_name != 'city' and attr_name != 'user_id' and attr_name != 'id' and attr_name != 'category_id' and attr_name != 'title' and attr_name != 'pasif' and attr_name != 'items_list' and attr_name != 'para_birim'   %}
+      {% set value = post|getattr(attr_name) %}
+      {% if value %}
+<div class="card d-flex " style=" text-align:left; box-shadow: rgba(0, 0, 0, 0.0) 0px 2px 8px, rgba(0, 0, 0, 0.0) 0px 7px 13px -3px, rgba(0, 0, 0, 0.0) 0px -3px 0px inset;">
+          {% if attr_name == 'release_date' %}
+            <p class="card-text" style="color: black;">ilan tarihi: {{ value }}</p>
+          {% elif attr_name == 'state' %}
+            <p class="card-text" style="color: black;">Durumu: {{ value }}</p>
+            {% elif attr_name == 'takas_kategori' %}
+                        <p style="color:black;font-weight:bold; padding:4px;">Takas Edilebilecek Ürünler</p>
+                     {% for item in takas_kategorileri %}
+    <div style="padding:6px;">
+   <p class="card-text " style="color:black;background-color:#9DB2BF;border-radius:10px; padding:4px;border:solid 1.9px black;">  {{ item }}</p>
+    </div>
+                            {% endfor %}
+            {% elif attr_name == 'price' %}
+               <p class="card-text" style="color: black;">Fiyat: {{ value  }} {{ post.para_birim }}</p>
+
+            {% else %}
+            <p class="card-text" style="color: black;">{{ attr_name }}: {{ value }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+
+    {% endif %}
+
+  {% endfor %}
+ <hr style="border:1px solid black;">
+
+
+<button class="button-3 takas_teklif_button cardss" style="margin: 8px 0px; padding: 0.8rem 3.6rem; width: 100%; {{  'display:none;' if post.user_id == current_user.id }}"  id="openButton">Takas Teklifi Ver</button>
+
+
+<div id="popup" class="popup">
+  <div class="popup-content ilan">
+    <div class="posts-section" style="overflow-y: scroll;overflow-x: hidden;">
+      <h3>İlanlar</h3>
+        <p style="color:red;">İlan seçmek Zorunlu</p>
+        <hr>
+      <div class="row justify-content-center teklif-ilan-row" >
+          {% if post_sayi !=0 %}
+       {% for post in posts %}
+
+
+          {% if  post.items_list is not none %}
+{% set id_str = choosen_post.id|string %}
+{% set items_list = post.items_list|replace('[', '')|replace(']', '')|replace(' ', '') if post.items_list is string else [] %}
+{% set items_list = items_list.split(',') %}
+
+
+
+         {% if choosen_post.id|string not in items_list %}
+
+<div class="col-lg-3 col-md-4 mb-4 col-sm-4 col-4" style="height: 130px;">
+  <div class="card h-100 cardss jukul  "  id="jukul" style="color:black;" onclick="selectPost('{{ post.user_id }}/{{ choosen_post.user_id }}/{{ choosen_post.id }}/{{ post.id }}', '{{ post.title }}') ;toggleClicked(this)">
+
+      {% if post.images[0]  %}
+                    <div class="img-wrapper">
+                      <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" onclick="showImageInCarousel({{ loop.index0 }})">
+                    </div>
+{% else %}
+            <div class="img-wrapper">
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+                    </div>
+
+{% endif %}
+
+                   <h6 class="card-title text-center" style="white-space: nowrap;overflow:hidden;padding-bottom:10px;">{{ post.title }}</h6>
+
+  </div>
+</div>
+          {% endif %}
+
+{% if choosen_post.id|string  in items_list %}
+        <div class="col-lg-3 col-md-4 mb-4 col-sm-4 col-4 non-clickable" style="height: 130px;">
+<h6 style="color:green;">Teklif Yapıldı</h6>
+
+  <div class="card h-100  selected-post" onclick="selectPost('{{ post.user_id }}/{{ choosen_post.user_id }}/{{ choosen_post.id }}/{{ post.id }}', '{{ post.title }}')">
+
+      {% if post.images[0]  %}
+                    <div class="img-wrapper">
+                      <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" onclick="showImageInCarousel({{ loop.index0 }})">
+                    </div>
+{% else %}
+            <div class="img-wrapper">
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+                    </div>
+
+{% endif %}
+                   <h6 class="card-title text-center" style="white-space: nowrap;overflow:hidden;padding-bottom:10px;">{{ post.title }}</h6>
+
+  </div>
+</div>
+
+{% endif %}
+          {% else %}
+
+          <div class="col-lg-3 col-md-4 mb-4 col-sm-4 col-4 " style="height: 130px;">
+  <div class="card h-100 cardss jukul" style="color:black;" onclick="selectPost('{{ post.user_id }}/{{ choosen_post.user_id }}/{{ choosen_post.id }}/{{ post.id }}', '{{ post.title }}') ;toggleClicked(this)">
+{% if post.images[0]  %}
+                    <div class="img-wrapper">
+                      <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" onclick="showImageInCarousel({{ loop.index0 }})">
+                    </div>
+{% else %}
+            <div class="img-wrapper">
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+                    </div>
+
+{% endif %}
+                   <h6 class="card-title text-center" style="white-space: nowrap;overflow:hidden;padding-bottom:10px;">{{ post.title }}</h6>
+  </div>
+</div>
+
+{% endif %}
+
+
+{% endfor %}
+{% else %}
+           <h3>İlan Bulunamadı</h3>
+<p style="color:red;">Tekflif Yapmak İçin İlanınızın Olması Gerekir</p>
+          {% endif %}
+      </div>
+    </div>
+    <textarea id="inputField" rows="10"  maxlength="432" placeholder="Tekflif Mesajı Yaz / İsteğe bağlı" style="width: 100%; resize: none;"></textarea>
+
+    <button id="submitButton" class="button-3" style="{{ 'display:none;' if post_sayi == 0  }}"><img src="https://cdn-icons-png.flaticon.com/512/736/736212.png" width="25">Gönder</button>
+    <button id="closeButton" class="button-3"><img src="https://cdn-icons-png.flaticon.com/512/660/660252.png" width="25">İptal</button>
+  </div>
+</div>
+
+
+</div>
+</div>
+
+
+
+<div class="container-divide-mobil" style="">
+<hr style="border:solid 3px black">
+</div>
+
+
+<div class="col-md-2 kullanıcı-bilgileri cardss" style="background-color:#5F6769;max-height:60%;border-radius:7px;padding:0px 0px;">
+
+      <ul class="list-group list-group-flush" style="text-align:center;">
+<li class="list-group-item cardss" style="background: rgb(255,242,85);
+background: linear-gradient(328deg, rgba(255,242,85,1) 0%, rgba(102,198,49,1) 0%, rgba(99,162,179,1) 100%, rgba(96,124,133,1) 100%, rgba(82,166,78,1) 100%, rgba(92,157,176,1) 100%);">
+
+  <h6 style="color: black; height: 16px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">İletişim</h6>
+</li>
+                 </ul>
+     <hr style="border:1px solid black;">
+
+    <div class="padd" style="">
+
+<div class="padd-in" style="">
+
+
+ <div class="row  ">
+<div class="container-fluid">
+    <form  name="form" action="/profil" method="post" enctype="multipart/form-data">
+<input name="names" style="display:none;" value="{{post.user.id}}">
+
+<input class="btn-info button-user cardss" value="{{ user.name }} {{ user.last_name }}" type="submit">
+    </form>
+   </div>
+</div>
+
+ <hr style="color:white;border: 2px solid black;margin:5px 0px;">
+  <div class="row" style="text-align:center;">
+
+      <h4 class="card-text" style="color: black;font-size:15px;">{{ konum[0] }}/ {{ konum[1] }}</h4>
+    </div>
+
+     <hr style="color:white;border: 2px solid black;margin:5px 0px;">
+    <div class="row " style="margin-left: 0px; margin-right: 0px;" >
+<button class="button-3 cardss mesaj_gonder_button" style="margin: 8px 0px; padding: 0.5rem 2.0rem; width: 100%;  {{  'display:none;' if post.user_id == current_user.id }} "  id="openMessageButton">Mesaj Gönder</button>
+
+
+
+    </div>
+
+    <div id="popup-mesaj" class="popup">
+  <div class="popup-content msg">
+    <div class="posts-section">
+      <h3>Mesaj Gönder</h3>
+{% if  is_user == false  %}
+        <hr>
+    <p style="color:red;"> Önce Hesabınıza Giriş Yapın veya Kayıt Olun</p>
+
+        <h5>Giriş</h5>
+        <a href="/login_choise">
+    <button class="button-3 cardss" style="margin-bottom:9px;width:50%;">Giriş Yap > </button>
+        </a>
+            <br>
+
+  {% endif %}
+
+      <div class="row justify-content-center">
+
+      </div>
+    </div>
+    <textarea id="inputField-mesaj" rows="10" required="1" placeholder="Mesaj Yaz" style="width: 100%; resize: none;"></textarea>
+<br><hr>
+      {% if  is_user == true  %}
+      <button id="submitButton-mesaj" class="button-3" onclick="selectPost(555)"><img src="https://cdn-icons-png.flaticon.com/512/736/736212.png" width="25">Gönder</button>
+        {% else %}
+            <button id="submitButton-mesaj" style="display:none; " class="button-3" onclick="selectPost(555)">Gönder</button>
+
+      {% endif %}
+
+      <button id="closeButton-mesaj" class="button-3"><img src="https://cdn-icons-png.flaticon.com/512/660/660252.png" width="25">İptal</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
+
+
+
+
+      </div>
+
+
+    </div>
+<br class="pc-hr"><br class="pc-hr">
+    <hr class="pc-hr" style="margin-top:-55px;color:black;">
+
+<div class="container-divide-mobil" style="">
+<hr style="border:solid 3px black">
+</div>
+
+
+<div class="row açıklama-row" >
+    <div class="col-12">
+
+
+    <div class="container-sm " style="" >
+                <div class="cardss" style="background-color:white;;">
+ <ul class="list-group list-group-flush">
+<li class="list-group-item cardss"  style="background: rgb(255,242,85);
+background: linear-gradient(328deg, rgba(255,242,85,1) 0%, rgba(102,198,49,1) 0%, rgba(99,162,179,1) 100%, rgba(96,124,133,1) 100%, rgba(82,166,78,1) 100%, rgba(92,157,176,1) 100%);">
+  <h6 style="color: black; height: 17px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">AÇIKLAMA</h6>
+</li>
+                 </ul>
+
+                    <div class="row" style="padding:10px;height:250px;overflow-y: scroll;scroll-x:auto">
+
+            <p class="card-texta" style="color: black;text-align:left;">{{ choosen_post.content | safe }}</p>
+
+        </div>  </div>
+
+</div>
+
+</div>
+</div>
+<hr class="pc-hr">
+<div class="container-divide-mobil" style="">
+<hr style="border:solid 3px black">
+</div>
+
+ <div class="row " >
+    <div class="col-lg-6 col-md-6 w-100 p-4 pb-4 d-flex justify-content-center  " style="">
+
+        <div class="row ilan_row hh" style="">
+            <div style="padding-right: 0px;padding-left: 0px;">
+
+   <ul class="list-group list-group-flush" style="margin-bottom:2px;" >
+<li class="list-group-item cardss" style="background: rgb(255,242,85);
+background: linear-gradient(328deg, rgba(255,242,85,1) 0%, rgba(102,198,49,1) 0%, rgba(99,162,179,1) 100%, rgba(96,124,133,1) 100%, rgba(82,166,78,1) 100%, rgba(92,157,176,1) 100%);">
+
+  <h6 style="color: black; height: 16px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">Benzer İlanlar</h6>
+</li>
+                 </ul>
+
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="border-radius:0px 0px 10px 10px;background-color:#5F6769;">
+
+        <div class="carousel-inner benzer-ilan-row" style="">
+
+
+            {% for n in range(1,num+1) %}
+       <div class="carousel-item  {{ 'active' if n == 1 }}">
+         <div class="row aktif">
+ {% for post in all_posts[(n-1)*6:n*6] %}
+             <div class="col-4 " style="height: 135px;margin-bottom:10px;">
+<form action="/ilan-detay" method="POST" style="margin-top:5px ;">
+
+  <input type="hidden" name="post_id" value="{{ post.id }}">
+ <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+
+                <div class="card h-100 cardss hh" >
+
+
+{% if post.images[0]  %}
+                    <div class="img-wrapper">
+                      <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" onclick="showImageInCarousel({{ loop.index0 }})">
+                    </div>
+{% else %}
+            <div class="img-wrapper">
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+                    </div>
+
+{% endif %}
+
+
+                  <h6 class="card-title text-center" style="white-space: nowrap;overflow:hidden;padding-bottom:7px;padding-top:2px;padding-left:5px;text-overflow: ellipsis">{{ post.title }}</h6>
+                </div>
+
+              </a>
+</form>
+
+            </div>
+            {% endfor %}
+</div>
+       </div>
+
+      {% endfor %}
+
+  </div>
+
+
+
+  <button class="carousel-control-prev " type="button"  data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon cardss" aria-hidden="true" style="background-color:black;"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next " type="button" style="" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon cardss" aria-hidden="true" style="background-color:black;"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+
+
+</div>
+
+</div>
+        </div>
+</div>
+</div>
+
+<p style="padding-bottom:200px;visibility:hidden;">asdasd</p>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<script>
+
+function showImageInCarousel(index) {
+  $('.carousel-item.asd').removeClass('active');
+  $('.carousel-item.asd').eq(index).addClass('active');
+}
+
+var currentPreviewIndex = 0;
+
+function changeCarouselImage(index) {
+  $('.carousel').carousel(index);
+}
+
+function previousPreviewImages() {
+  currentPreviewIndex -= 10;
+  if (currentPreviewIndex < 0) {
+    currentPreviewIndex = 0;
+  }
+  updatePreviewImages();
+}
+
+function nextPreviewImages() {
+  currentPreviewIndex += 10;
+  if (currentPreviewIndex >= imageBase64List.length) {
+    currentPreviewIndex = imageBase64List.length - 10;
+  }
+  updatePreviewImages();
+}
+
+function updatePreviewImages() {
+  var previewImages = $('.image-preview img');
+  var numPreviewImages = previewImages.length;
+
+  previewImages.each(function(index) {
+    var imageIndex = currentPreviewIndex + index;
+    if (imageIndex < numPreviewImages) {
+      $(this).attr('src', 'data:image/png;base64,' + imageBase64List[imageIndex]);
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
+}
+
+$('.image-preview img').on('click', function() {
+  var index = $(this).index();
+  showImageInCarousel(index);
+});
+
+const prevButton = document.querySelector('.carousel-control-prev');
+const nextButton = document.querySelector('.carousel-control-next');
+const pageSize = 10;
+let currentPage = 1;
+
+function showPreviewPage(page) {
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const images = document.querySelectorAll('.image-preview img');
+
+  images.forEach((image, index) => {
+    if (index >= startIndex && index < endIndex) {
+      image.style.display = 'inline-block';
+    } else {
+      image.style.display = 'none';
+    }
+  });
+
+  // Update carousel controls
+  prevButton.disabled = page === 1;
+  nextButton.disabled = endIndex >= images.length;
+}
+
+function prevPreviewPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    showPreviewPage(currentPage);
+  }
+}
+
+function nextPreviewPage() {
+  const images = document.querySelectorAll('.image-preview img');
+  if (currentPage < Math.ceil(images.length / pageSize)) {
+    currentPage++;
+    showPreviewPage(currentPage);
+  }
+}
+
+// Show the initial page
+showPreviewPage(currentPage);
+
+
+ let selectedPost = '';
+
+  function selectPost(title) {
+    selectedPost = title;
+    console.log('Selected Post:', selectedPost);
+  }
+
+  document.getElementById('submitButton-mesaj').addEventListener('click', function() {
+    const formData = document.getElementById('inputField-mesaj').value;
+    console.log('Selected Post:', selectedPost);
+    console.log('Form Data:', formData);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/message-data-base', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        console.log('Response:', xhr.responseText);
+        document.getElementById('popup-mesaj').style.display = 'none';
+        const currentUserId = "{{ post.user_id }}";
+        const UserId = "{{ current_user.id }}";
+        const url = '/chat?to_user_id=' + encodeURIComponent(currentUserId) + '&user_id=' + encodeURIComponent(UserId);
+
+
+         window.location.href = url;
+      }
+    };
+    const data = JSON.stringify({
+      post: selectedPost,
+      form: formData,
+      to_user_id: {{ post.user_id }},
+
+    });
+    xhr.send(data);
+
+    // Reset selected post and form data
+    selectedPost = '';
+    document.getElementById('inputField-mesaj').value = '';
+  });
+
+  document.getElementById('openMessageButton').addEventListener('click', function() {
+    document.getElementById('popup-mesaj').style.display = 'block';
+  });
+
+  document.getElementById('closeButton-mesaj').addEventListener('click', function() {
+    document.getElementById('popup-mesaj').style.display = 'none';
+    selectedPost = '';
+    document.getElementById('inputField-mesaj').value = '';
+  });
+
+let selectedPosttakas = '';
+
+function selectPost(title) {
+  selectedPosttakas = title;
+  console.log('Selected Post:', selectedPosttakas);
+}
+
+document.getElementById('submitButton').addEventListener('click', function() {
+  const formData = document.getElementById('inputField').value;
+  console.log('Selected Post:', selectedPosttakas);
+  console.log('Form Data:', formData);
+
+  // Make an AJAX request to send the selected post and form data to the server
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/submit', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      console.log('Response:', xhr.responseText);
+      const url = '/Takas-Tekflifleri?take=False';
+
+      window.location.href = url;
+
+    }
+  };
+  const data = JSON.stringify({
+    post: selectedPosttakas,
+    form: formData
+  });
+  xhr.send(data);
+
+  // Reset selected post and form data
+  selectedPosttakas = '';
+  document.getElementById('inputField').value = '';
+});
+
+document.getElementById('openButton').addEventListener('click', function() {
+  document.getElementById('popup').style.display = 'block';
+});
+
+document.getElementById('closeButton').addEventListener('click', function() {
+  document.getElementById('popup').style.display = 'none';
+  selectedPosttakas = '';
+  document.getElementById('inputField').value = '';
+});
+
+ var clickedElement = null;
+
+  function toggleClicked(element) {
+    if (clickedElement !== null) {
+      clickedElement.classList.remove("clicked");
+    }
+
+    if (clickedElement !== element) {
+      element.classList.add("clicked");
+      clickedElement = element;
+    } else {
+      clickedElement = null;
+    }
+  }
+
+
+</script>
+
+
+{% include 'footer.html' %}
+<br class="mobile-br">
+
+{% endblock %}
+

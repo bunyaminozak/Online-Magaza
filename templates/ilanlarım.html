@@ -1,0 +1,161 @@
+{% extends "base_profil.html" %}
+
+{% block content %}
+
+
+
+<div style="{{'background: #db8a84 ;' if pasif else 'background: white;' }};" class="container-fluid cardss" >
+
+
+    <div class="row  " style="padding-right:-10px;margin-right: -22;" >
+
+             <ul class="list-group list-group-flush" style="height:30px;padding-right:10px;">
+<li class="list-group-item cardss" style="background: rgb(255,242,85);
+background: linear-gradient(144deg, rgba(255,242,85,1) 0%, rgba(225,234,241,1) 0%, rgba(124,136,139,1) 96%, rgba(95,103,105,1) 100%);height:30px;">
+  <h4 style="color: black; height: 12px;font-size:16px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">
+      {% if pasif %}
+      Yayında <span style="color:red;">Olmayan</span> Takas İlanlarım
+      {% else %}
+      Takas İlanlarım
+      {% endif %}
+  </h4>
+</li>
+                 </ul>
+
+
+  <div class="col-11 ilanlarım-container  " >
+
+      <div class="container-md ürün-container" style="margin-top: -150px;">
+        <div class="container container-kj" >
+            <div class="row profil-container margin-5 " >
+
+                <div class="col-8" style="text-align:left;">
+            <h4>İlanlar</h4>
+</div>
+                  <div class="col-4">
+            <h4>Tarihler</h4>
+</div>
+          </div>
+    <hr class="hr-margin" >
+            <div class="row margin-5 ">
+
+            {% for post in posts %}
+            <div class="mb-4 col-lg-4 col-md-4  col-sm-4  profil-container profil-ilan">
+            <form action="/ilan-detay" method="POST" style="margin-top:5px ;">
+
+  <input type="hidden" name="post_id" value="{{ post.id }}">
+ <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+
+                <div class="card h-100 cardss">
+{% if post.images[0]  %}
+                    <div class="img-wrapper">
+                      <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" onclick="showImageInCarousel({{ loop.index0 }})">
+                    </div>
+{% else %}
+            <div class="img-wrapper">
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+            </div>
+{% endif %}
+                  <h6 class="card-title text-center" style="white-space: nowrap;overflow:hidden;padding-bottom:10px;padding-left:5px;text-overflow: ellipsis;">{{ post.title }}</h6>
+                </div>
+              </a>
+</form>
+            </div>
+            <div class="col-1">
+                <br>
+<form action="/delete" method="POST" style="margin-bottom: -5px;">
+      <input type="hidden" name="post_id" value="{{ post.id }}">
+  <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+       <img  src="https://img.icons8.com/?size=512&id=OZuepOQd0omj&format=png" width="25">
+   </a>
+</form>
+
+ <form action="/add_post" method="POST" style="margin-top:5px ;">
+  <input type="hidden" name="edit" value="True">
+  <input type="hidden" name="post_id" value="{{ post.id }}">
+
+  <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+    <img src="https://img.icons8.com/?size=512&id=RgcsUF7ERmty&format=png" width="25" style="margin-top:8px;">
+  </a>
+</form>
+
+
+                 </div>
+            <div class="col-lg-5 col-md-4 mb-4 col-sm-4 col-4 " style="margin-left:auto" >
+{{ post.release_date }}
+                <br>
+ <form action="/hide" method="POST" style="margin-top:5px ;">
+
+     {% if pasif %}
+     <input type="hidden" name="edit" value="show">
+      {% else %}
+        <input type="hidden" name="edit" value="hide">
+     {% endif %}
+
+     <input type="hidden" name="post_id" value="{{ post.id }}">
+
+     <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+         {% if pasif %}
+        <img src="https://img.icons8.com/?size=512&id=84871&format=png" width="25" style="margin-top:8px;">
+         {% else %}
+         <img src="https://img.icons8.com/?size=512&id=32043&format=png" width="25" style="margin-top:8px;">
+
+         {% endif %}
+
+    </a>
+</form>
+
+
+
+</div><hr class="hr-margin-post">{% endfor %}
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="container-fluid" style="background-color: #EEEEE;">
+  <form method="POST" action="/ilan" >
+    <div class="row justify-content-center">
+      {% set start_index = ((page // 10) * 10) + 1 %}
+      {% set end_index = start_index + 9 %}
+      {% for a in range(start_index, start_index + 10) %}
+        {% if a <= nav_number %}
+          <div class="col-1 page-nav-button">
+            <input type="submit" name="page" class="button-12" value="{{ a }}">
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="row justify-content-center" >
+       {% if page != 0 %}
+        <div class="col-2 page-nav-button">
+          <button type="submit" name="page" class="button-12" value="{{ page - 1 }}">
+            <img src="https://img.icons8.com/?size=512&id=37587&format=png" width="20">
+          </button>
+        </div>
+      {% endif %}
+      {% if nav_number > page + 1 %}
+        <div class="col-2 page-nav-button">
+          <button type="submit" name="page" class="button-12" value="{{ page + 2 }}">
+            <img src="https://img.icons8.com/?size=512&id=37586&format=png" width="20">
+          </button>
+        </div>
+      {% endif %}
+
+    </div>
+  </form>
+</div>
+
+                </div>
+</div>
+
+<script>
+</script>
+
+{% endblock %}

@@ -1,0 +1,1621 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<form action="/add_post" method="POST" enctype="multipart/form-data">
+
+<div class="container-sm" style="background-color:#EEEEEE;text-align:center;font-weight: bold;padding-bottom: 50px;">
+
+
+
+  <label></label>
+<p style="margin-bottom:30px;"></p>
+    <label>Başlık</label>
+      <input minlength="10"  class="form-control cardss" type="text" name="başlık" value="{{ title }}" style="text-align:center;" required>
+  <br>
+ <label >Açıklama</label>
+
+<div class=" "  >
+
+{% if is_edit %}
+  {{ ckeditor.create(value=content ,name='cke' ) }}
+{% else %}
+  {{ ckeditor.create(name='cke') }}
+{% endif %}
+
+{{ ckeditor.load(pkg_type="standart") }}
+{{ ckeditor.config(lanuage='en', width=100) }}
+</div>
+
+  <br>  <br>
+<span style="background-color:white"> Fiyat <span style="color:red">yazmazsan</span> ilanın <span style="text-decoration: underline;">SADECE</span> <span style="color:blue;">"Takasa Açık olur" </span></span>
+<br>
+   Fiyat :<input name="fiyat" class="cardss" value="{{ price }}"   type="number" style="background-color:white;color:black;width:205px;display:inline-block;font-size:20px;margin-top:15px;" min="0" > <select name="para_birim" class="cardss"  style="width:45px;border-radius:7px;display:inline-block;height:35px;">
+      <option>TL</option>
+      <option>USD</option>
+      <option>EURO</option>
+
+   </select>
+  <br>
+   <br><br>
+  <span style="background-color:white"> Kategori <span style="color:red">yazmazsan</span> <span style="color:blue;">"Herhangi bir şey ile TAKAS olabilir"  </span> olarak belirlenir</span>
+<br>
+  <br>
+<span style="background-color:green;color:white">Not : </span>  <span style="background-color:orange">' , ' virgül  ile ayırır isen birden fazla kategori seçebilirsin</span>
+      <input value="{{ takas_kategori }}"  class="form-control cardss" type="text" name="kategori" placeholder="Takas Yapacağın Ürünler?  örnek: İphone 11" style="text-align:center;">
+
+
+   <br>
+ Durumu :<select name="state" class="cardss"  style="border-radius:7px;height:35px;margin-right:55px;">
+      <option >Temiz</option>
+      <option>Yeni Gibi</option>
+      <option>Fena Değil</option>
+     <option>Arızalı</option>
+
+    </select> <br><br>
+   Fotoğraf Seç <input class="cardss"  type="file" id="files" name="files" multiple style="width:255px;margin-top:15px;" >
+
+
+
+
+
+
+  <br>
+  <br>
+<label for="country-select">Şehir seç:</label>
+<select id="country-select" class="cardss" name="şehir_bul" onchange="updateCityOptions()" required>
+
+  {% if is_edit %}
+  <option   value="{{ ilçe }}" >{{ ilçe }}</option>
+  {% endif %}
+  <option value="">Şehir seç</option>
+   <option value="adana">Adana</option>
+  <option value="adıyaman">Adıyaman</option>
+  <option value="afyon">Afyon</option>
+  <option value="ağrı">Ağrı</option>
+  <option value="amasya">Amasya</option>
+  <option value="ankara">Ankara</option>
+  <option value="antalya">Antalya</option>
+  <option value="artvin">Artvin</option>
+  <option value="aydın">Aydın</option>
+  <option value="balıkesir">Balıkesir</option>
+  <option value="bilecik">Bilecik</option>
+  <option value="bingöl">Bingöl</option>
+  <option value="bitlis">Bitlis</option>
+  <option value="bolu">Bolu</option>
+  <option value="burdur">Burdur</option>
+  <option value="bursa">Bursa</option>
+  <option value="çanakkale">Çanakkale</option>
+  <option value="çankırı">Çankırı</option>
+  <option value="çorum">Çorum</option>
+  <option value="denizli">Denizli</option>
+  <option value="diyarbakır">Diyarbakır</option>
+  <option value="edirne">Edirne</option>
+  <option value="elazığ">Elazığ</option>
+  <option value="erzincan">Erzincan</option>
+  <option value="erzurum">Erzurum</option>
+  <option value="eskişehir">Eskişehir</option>
+  <option value="gaziantep">Gaziantep</option>
+  <option value="giresun">Giresun</option>
+  <option value="gümüşhane">Gümüşhane</option>
+  <option value="hakkari">Hakkari</option>
+  <option value="hatay">Hatay</option>
+  <option value="isparta">Isparta</option>
+  <option value="i̇çel (mersin)">İçel (Mersin)</option>
+  <option value="i̇stanbul">İstanbul</option>
+  <option value="i̇zmir">İzmir</option>
+  <option value="kars">Kars</option>
+  <option value="kastamonu">Kastamonu</option>
+  <option value="kayseri">Kayseri</option>
+  <option value="kırklareli">Kırklareli</option>
+  <option value="kırşehir">Kırşehir</option>
+  <option value="kocaeli">Kocaeli</option>
+  <option value="konya">Konya</option>
+  <option value="kütahya">Kütahya</option>
+  <option value="malatya">Malatya</option>
+  <option value="manisa">Manisa</option>
+  <option value="k.maraş">K.maraş</option>
+  <option value="mardin">Mardin</option>
+  <option value="muğla">Muğla</option>
+  <option value="muş">Muş</option>
+  <option value="nevşehir">Nevşehir</option>
+  <option value="niğde">Niğde</option>
+  <option value="ordu">Ordu</option>
+  <option value="rize">Rize</option>
+  <option value="sakarya">Sakarya</option>
+  <option value="samsun">Samsun</option>
+  <option value="siirt">Siirt</option>
+  <option value="sinop">Sinop</option>
+  <option value="sivas">Sivas</option>
+  <option value="tekirdağ">Tekirdağ</option>
+  <option value="tokat">Tokat</option>
+  <option value="trabzon">Trabzon</option>
+  <option value="tunceli">Tunceli</option>
+  <option value="şanlıurfa">Şanlıurfa</option>
+  <option value="uşak">Uşak</option>
+  <option value="van">Van</option>
+  <option value="yozgat">Yozgat</option>
+  <option value="zonguldak">Zonguldak</option>
+  <option value="aksaray">Aksaray</option>
+  <option value="bayburt">Bayburt</option>
+  <option value="karaman">Karaman</option>
+  <option value="kırıkkale">Kırıkkale</option>
+  <option value="batman">Batman</option>
+  <option value="şırnak">Şırnak</option>
+  <option value="bartın">Bartın</option>
+  <option value="ardahan">Ardahan</option>
+  <option value="iğdır">Iğdır</option>
+  <option value="yalova">Yalova</option>
+  <option value="karabük">Karabük</option>
+  <option value="kilis">Kilis</option>
+  <option value="osmaniye">Osmaniye</option>
+  <option value="düzce">Düzce</option>
+</select>
+
+<label for="city-select">İlçe seç:</label>
+<select id="city-select" class="cardss" name="ilçe_bul" required>
+    {% if is_edit %}
+  <option   value="{{ şehir }}" >{{ şehir }}</option>
+  {% endif %}
+  <option value="">İlçe seç</option>
+</select>
+
+
+
+
+
+
+
+
+{% if is_vasıta %}
+<div class="row">
+  <div class="col-sm-6">
+    <label>Yıl:</label>
+    <input type="number" class="form-control text-center"  name="yil">
+  </div>
+  <div class="col-sm-6">
+    <label>KM:</label>
+    <input type="number" class="form-control text-center" name="km">
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <label>Motor Hacmi:</label>
+    <input type="text" class="form-control text-center" name="motor_hacmi">
+  </div>
+  <div class="col-sm-6">
+    <label>HP:</label>
+    <input type="number" class="form-control text-center" name="hp">
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <label>Vites:</label>
+    <select class="form-control text-center" name="vites">
+      <option value="">-- Seçiniz --</option>
+      <option value="Manuel">Manuel</option>
+      <option value="Otomatik">Otomatik</option>
+      <option value="Yarı Otomatik">Yarı Otomatik</option>
+    </select>
+  </div>
+  <div class="col-sm-6">
+    <label>Yakıt:</label>
+    <select class="form-control text-center" name="yakit">
+      <option value="">-- Seçiniz --</option>
+      <option value="Benzin">Benzin</option>
+      <option value="Dizel">Dizel</option>
+      <option value="LPG">LPG</option>
+      <option value="Hibrit">Hibrit</option>
+    </select>
+  </div>
+</div>
+<div class="row">
+
+    <label>Ağır Hasarlı Mı?:</label>
+    <select class="form-control text-center" name="hasar">
+      <option value="Hayır">Hayır</option>
+      <option value="Hayır">Evet</option>
+    </select>
+</div>
+
+
+
+      {% endif  %}
+
+    {% if is_emlak %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <label>Brüt Metre:</label>
+      <input type="number" class="form-control text-center" max="2000" name="brut-metre">
+    </div>
+    <div class="col-sm-6">
+      <label>Net Metre:</label>
+      <input type="number" class="form-control text-center" max="2000" name="net-metre">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <label>Oda Sayısı:</label>
+      <input type="number" class="form-control text-center" max="200" name="oda-sayisi">
+    </div>
+    <div class="col-sm-6">
+      <label>Yaş:</label>
+      <input type="number" class="form-control text-center" max="500" name="yas">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <label>Kat:</label>
+      <input type="number" class="form-control text-center" max="900" name="kat">
+    </div>
+    <div class="col-sm-6">
+      <label>Bina Kat Sayısı:</label>
+      <input type="number" class="form-control text-center" max="900" name="bina-kat-sayisi">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <label>Banyo Sayısı:</label>
+      <input type="number" class="form-control text-center" max="200" name="banyo-sayisi">
+    </div>
+    <div class="col-sm-6">
+      <label>Balkon Var mı ?</label>
+      <div class="form-check">
+          <select class="form-control text-center" name="balkon">
+            <option value="Yok">Yok</option>
+               <option value="Var">Var</option>
+          </select>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <label>Eşyalı mı ? </label>
+      <div class="form-check">
+        <select class="form-control text-center" name="eşya">
+            <option value="Hayır">Hayır</option>
+            <option value="Evet">Evet</option>
+          </select>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <label>Site İçerisinde mi ?</label>
+      <div class="form-check">
+         <select class="form-control text-center" name="site">
+            <option value="0">Hayır</option>
+             <option value="1">Evet</option>
+          </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <label>Aidat:</label>
+      <input type="number" class="form-control text-center" max="600000" name="aidat">
+    </div>
+    <div class="col-sm-6">
+      <label>Depozito:</label>
+      <input type="number" class="form-control text-center" max="6000000" name="depozito">
+    </div>
+  </div>
+</div>
+
+
+        {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+    {% if is_telefon %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="marka">Marka:</label>
+          <input type="text" placeholder="bu tarz::  İphone" class="form-control text-center" id="marka" name="marka">
+        </div>
+        <div class="form-group">
+          <label for="model">Model:</label>
+          <input type="text" placeholder="bu tarz:: 11" class="form-control text-center" id="model" name="model">
+        </div>
+        <div class="form-group">
+          <label for="hafiza">Hafıza: GB</label>
+          <input type="number" placeholder="bu tarz::  128 "  class="form-control text-center" id="hafiza" name="hafiza" min="0" max="1024">
+        </div>
+        <div class="form-group">
+          <label for="ekran">Ekran: İnch</label>
+          <input type="number" placeholder="bu tarz::  6.7"  class="form-control text-center" id="ekran" name="ekran" min="2" max="20" step="0.1" pattern="^\d+(\.\d{1})?$">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="ram">RAM:  GB</label>
+          <input type="number" placeholder="bu tarz::  8"  class="form-control text-center" id="ram" name="ram" min="0" max="60">
+        </div>
+        <div class="form-group">
+          <label for="kamera">Kamera: MP</label>
+         <input type="text" placeholder="bu tarz::  16 " class="form-control text-center" id="kamera" name="kamera" maxlength="10">
+
+        </div>
+        <div class="form-group">
+          <label for="on_kamera">Ön Kamera: MB</label>
+          <input type="text" placeholder="bu tarz::  8 " class="form-control text-center" id="on_kamera" name="on_kamera">
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="renk">Renk:</label>
+          <input type="text" placeholder="bu tarz::  Mavi"  class="form-control text-center" id="renk" name="renk">
+        </div>
+               </div>
+
+
+        <div class="form-group">
+
+          <label for="garanti">Garanti:</label>
+            <select id="garanti" name="garanti" class="form-select text-center">
+                <option value="">Garanti Yöntemi Seç</option>
+                <option value="Yok">Yok</option>
+                 <option value="Distribütor garantili">Distribütor garantili</option>
+              <option value="İthalatçı garantili">İthalatçı garantisi</option>
+            </select>
+
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+    {% endif  %}
+
+ <br>
+
+
+
+
+
+
+    <br>
+    <br>
+
+
+
+
+
+
+
+<!--  <button  class="button-3" role="button" onchange="this.form.submit();" id="finish" name="finish">Tamamla</button>-->
+
+
+
+{% if is_edit %}
+
+    <button type="submit" class="button-3" name="change">Değiştir</button>
+
+    {% else %}
+        <button type="submit" class="button-3" name="finish">Tamamla</button>
+
+{% endif  %}
+
+
+<!--this.form.submit();-->
+
+
+
+
+
+
+</div>
+</form>
+
+
+
+
+
+
+
+<script>
+
+
+
+
+
+const cityOptions = {
+    adana :[
+                "Aladağ",
+                "Ceyhan",
+                "Çukurova",
+                "Feke",
+                "İmamoğlu",
+                "Karaisalı",
+                "Karataş",
+                "Kozan",
+                "Pozantı",
+                "Saimbeyli",
+                "Sarıçam",
+                "Seyhan",
+                "Tufanbeyli",
+                "Yumurtalık",
+                "Yüreğir"
+            ]
+    ,adıyaman :[
+                "Merkez",
+                "Besni",
+                "Çelikhan",
+                "Gerger",
+                "Gölbaşı",
+                "Kâhta",
+                "Samsat",
+                "Sincik",
+                "Tut"
+
+            ]
+    ,afyon :[
+                "Merkez",
+                "Başmakçı",
+                "Bayat",
+                "Bolvadin",
+                "Çay",
+                "Çobanlar",
+                "Dazkırı",
+                "Dinar",
+                "Emirdağ",
+                "Evciler",
+                "Hocalar",
+                "İhsaniye",
+                "İscehisar",
+                "Kızılören",
+                "Sandıklı",
+                "Sinanpaşa",
+                "Sultandağı",
+                "Şuhut"
+            ]
+    ,ağrı :[
+                "Merkez",
+                "Diyadin",
+                "Doğubayazıt",
+                "Eleşkirt",
+                "Hamur",
+                "Patnos",
+                "Taşlıçay",
+                "Tutak"
+            ]
+    ,amasya : [
+                "Merkez",
+                "Göynücek",
+                "Gümüşhacıköy",
+                "Hamamözü",
+                "Merzifon",
+                "Suluova",
+                "Taşova"
+            ]
+    ,ankara : [
+                "Akyurt",
+                "Altındağ",
+                "Ayaş",
+                "Balâ",
+                "Beypazarı",
+                "Çamlıdere",
+                "Çankaya",
+                "Çubuk",
+                "Elmadağ",
+                "Etimesgut",
+                "Evren",
+                "Gölbaşı",
+                "Güdül",
+                "Haymana",
+                "Kalecik",
+                "Kahramankazan",
+                "Keçiören",
+                "Kızılcahamam",
+                "Mamak",
+                "Nallıhan",
+                "Polatlı",
+                "Pursaklar",
+                "Sincan",
+                "Şereflikoçhisar",
+                "Yenimahalle",
+            ]
+    ,antalya :[
+                "Akseki",
+                "Aksu",
+                "Alanya",
+                "Demre",
+                "Döşemealtı",
+                "Elmalı",
+                "Finike",
+                "Gazipaşa",
+                "Gündoğmuş",
+                "İbradı",
+                "Kaş",
+                "Kemer",
+                "Kepez",
+                "Konyaaltı",
+                "Korkuteli",
+                "Kumluca",
+                "Manavgat",
+                "Muratpaşa",
+                "Serik"
+            ]
+    ,artvin :[
+                "Merkez",
+                "Ardanuç",
+                "Arhavi",
+                "Borçka",
+                "Hopa",
+                "Kemalpaşa",
+                "Murgul",
+                "Şavşat",
+                "Yusufeli"
+            ]
+    ,aydın : [
+                "Bozdoğan",
+                "Buharkent",
+                "Çine",
+                "Didim",
+                "Efeler",
+                "Germencik",
+                "İncirliova",
+                "Karacasu",
+                "Karpuzlu",
+                "Koçarlı",
+                "Köşk",
+                "Kuşadası",
+                "Kuyucak",
+                "Nazilli",
+                "Söke",
+                "Sultanhisar",
+                "Yenipazar"
+            ]
+    ,balıkesir : [
+                "Altıeylül",
+                "Ayvalık",
+                "Balya",
+                "Bandırma",
+                "Bigadiç",
+                "Burhaniye",
+                "Dursunbey",
+                "Edremit",
+                "Erdek",
+                "Gömeç",
+                "Gönen",
+                "Havran",
+                "İvrindi",
+                "Karesi",
+                "Kepsut",
+                "Manyas",
+                "Marmara",
+                "Savaştepe",
+                "Sındırgı",
+                "Susurluk"
+            ]
+    ,bilecik :[
+                "Merkez",
+                "Bozüyük",
+                "Gölpazarı",
+                "İnhisar",
+                "Osmaneli",
+                "Pazaryeri",
+                "Söğüt",
+                "Yenipazar"
+            ]
+    ,bingöl :[
+                "Merkez",
+                "Adaklı",
+                "Genç",
+                "Karlıova",
+                "Kiğı",
+                "Solhan",
+                "Yayladere",
+                "Yedisu"
+            ]
+    ,bitlis :[
+                "Merkez",
+                "Adilcevaz",
+                "Ahlat",
+                "Güroymak",
+                "Hizan",
+                "Mutki",
+                "Tatvan"
+            ]
+    ,bolu :[
+                "Merkez",
+                "Dörtdivan",
+                "Gerede",
+                "Göynük",
+                "Kıbrıscık",
+                "Mengen",
+                "Mudurnu",
+                "Seben",
+                "Yeniçağa"
+            ]
+    ,burdur :[
+                "Merkez",
+                "Ağlasun",
+                "Altınyayla",
+                "Bucak",
+                "Çavdır",
+                "Çeltikçi",
+                "Gölhisar",
+                "Karamanlı",
+                "Kemer",
+                "Tefenni",
+                "Yeşilova"
+            ]
+    ,bursa : [
+                "Büyükorhan",
+                "Gemlik",
+                "Gürsu",
+                "Harmancık",
+                "İnegöl",
+                "İznik",
+                "Karacabey",
+                "Keles",
+                "Kestel",
+                "Mudanya",
+                "Mustafa Kemal Paşa",
+                "Nilüfer",
+                "Orhaneli",
+                "Orhangazi",
+                "Osmangazi",
+                "Yenişehir",
+                "Yıldırım"
+            ]
+    ,çanakkale : [
+                "Merkez",
+                "Ayvacık",
+                "Bayramiç",
+                "Biga",
+                "Bozcaada",
+                "Çan",
+                "Eceabat",
+                "Ezine",
+                "Gelibolu",
+                "Gökçeada",
+                "Lapseki",
+                "Yenice"
+            ]
+    ,çankırı :[
+                "Merkez",
+                "Atkaracalar",
+                "Bayramören",
+                "Çerkeş",
+                "Eldivan",
+                "Ilgaz",
+                "Kızılırmak",
+                "Korgun",
+                "Kurşunlu",
+                "Orta",
+                "Şabanözü",
+                "Yapraklı"
+            ]
+    ,çorum :[
+                "Merkez",
+                "Alaca",
+                "Bayat",
+                "Boğazkale",
+                "Dodurga",
+                "İskilip",
+                "Kargı",
+                "Laçin",
+                "Mecitözü",
+                "Oğuzlar",
+                "Ortaköy",
+                "Osmancık",
+                "Sungurlu",
+                "Uğurludağ"
+            ]
+    ,denizli :[
+                "Acıpayam",
+                "Babadağ",
+                "Baklan",
+                "Bekilli",
+                "Beyağaç",
+                "Bozkurt",
+                "Buldan",
+                "Çal",
+                "Çameli",
+                "Çardak",
+                "Çivril",
+                "Güney",
+                "Honaz",
+                "Kale",
+                "Merkezefendi",
+                "Pamukkale",
+                "Sarayköy",
+                "Serinhisar",
+                "Tavas"
+            ]
+    ,diyarbakır : [
+                "Bağlar",
+                "Bismil",
+                "Çermik",
+                "Çınar",
+                "Çüngüş",
+                "Dicle",
+                "Eğil",
+                "Ergani",
+                "Hani",
+                "Hazro",
+                "Kayapınar",
+                "Kocaköy",
+                "Kulp",
+                "Lice",
+                "Silvan",
+                "Sur",
+                "Yenişehir",
+            ]
+    ,edirne : [
+                "Merkez",
+                "Enez",
+                "Havsa",
+                "İpsala",
+                "Keşan",
+                "Lalapaşa",
+                "Meriç",
+                "Süloğlu",
+                "Uzunköprü"
+            ]
+    ,elazığ : [
+                "Merkez",
+                "Ağın",
+                "Alacakaya",
+                "Arıcak",
+                "Baskil",
+                "Karakoçan",
+                "Keban",
+                "Kovancılar",
+                "Maden",
+                "Palu",
+                "Sivrice"
+            ]
+    ,erzincan : [
+                "Merkez",
+                "Çayırlı",
+                "İliç",
+                "Kemah",
+                "Kemaliye",
+                "Otlukbeli",
+                "Refahiye",
+                "Tercan",
+                "Üzümlü",
+            ]
+    ,erzurum : [
+                "Aşkale",
+                "Aziziye",
+                "Çat",
+                "Hınıs",
+                "Horasan",
+                "İspir",
+                "Karaçoban",
+                "Karayazı",
+                "Köprüköy",
+                "Narman",
+                "Oltu",
+                "Olur",
+                "Palandöken",
+                "Pasinler",
+                "Pazaryolu",
+                "Şenkaya",
+                "Tekman",
+                "Tortum",
+                "Uzundere",
+                "Yakutiye"
+            ]
+    ,eskişehir : [
+                "Alpu",
+                "Beylikova",
+                "Çifteler",
+                "Günyüzü",
+                "Han",
+                "İnönü",
+                "Mahmudiye",
+                "Mihalgazi",
+                "Mihalıççık",
+                "Odunpazarı",
+                "Sarıcakaya",
+                "Seyitgazi",
+                "Sivrihisar",
+                "Tepebaşı"
+            ]
+    ,gaziantep :[
+                "Araban",
+                "İslahiye",
+                "Karkamış",
+                "Nizip",
+                "Nurdağı",
+                "Oğuzeli",
+                "Şahinbey",
+                "Şehitkamil",
+                "Yavuzeli",
+            ]
+    ,giresun :[
+                "Merkez",
+                "Alucra",
+                "Bulancak",
+                "Çamoluk",
+                "Çanakçı",
+                "Dereli",
+                "Doğankent",
+                "Espiye",
+                "Eynesil",
+                "Görele",
+                "Güce",
+                "Keşap",
+                "Piraziz",
+                "Şebinkarahisar",
+                "Tirebolu",
+                "Yağlıdere"
+            ]
+    ,gümüşhane :[
+                "Merkez",
+                "Kelkit",
+                "Köse",
+                "Kürtün",
+                "Şiran",
+                "Torul"
+            ]
+    ,hakkari : [
+                "Merkez",
+                "Çukurca",
+                "Derecik",
+                "Şemdinli",
+                "Yüksekova"
+            ]
+    ,hatay : [
+                "Altınözü",
+                "Antakya",
+                "Arsuz",
+                "Belen",
+                "Defne",
+                "Dörtyol",
+                "Erzin",
+                "Hassa",
+                "İskenderun",
+                "Kırıkhan",
+                "Kumlu",
+                "Payas",
+                "Reyhanlı",
+                "Samandağ",
+                "Yayladağı"
+            ]
+    ,isparta :[
+                "Merkez",
+                "Aksu",
+                "Atabey",
+                "Eğirdir",
+                "Gelendost",
+                "Gönen",
+                "Keçiborlu",
+                "Senirkent",
+                "Sütçüler",
+                "Şarkikaraağaç",
+                "Uluborlu",
+                "Yalvaç",
+                "Yenişarbademli"
+            ]
+    ,mersin : [
+                "Akdeniz",
+                "Anamur",
+                "Aydıncık",
+                "Bozyazı",
+                "Çamlıyayla",
+                "Erdemli",
+                "Gülnar",
+                "Mezitli",
+                "Mut",
+                "Silifke",
+                "Tarsus",
+                "Toroslar",
+                "Yenişehir"
+            ]
+    ,i̇stanbul : [
+                "Adalar",
+                "Arnavutköy",
+                "Ataşehir",
+                "Avcılar",
+                "Bağcılar",
+                "Bahçelievler",
+                "Bakırköy",
+                "Başakşehir",
+                "Bayrampaşa",
+                "Beşiktaş",
+                "Beykoz",
+                "Beylikdüzü",
+                "Beyoğlu",
+                "Büyükçekmece",
+                "Çatalca",
+                "Çekmeköy",
+                "Esenler",
+                "Esenyurt",
+                "Eyüpsultan",
+                "Fatih",
+                "Gaziosmanpaşa",
+                "Güngören", ,
+                "Kadıköy",
+                "Kâğıthane",
+                "Kartal",
+                "Küçükçekmece",
+                "Maltepe",
+                "Pendik",
+                "Sancaktepe",
+                "Sarıyer",
+                "Silivri",
+                "Sultanbeyli",
+                "Sultangazi",
+                "Şile",
+                "Şişli",
+                "Tuzla",
+                "Ümraniye",
+                "Üsküdar",
+                "Zeytinburnu"
+            ]
+    ,i̇zmir : [
+                "Aliağa",
+                "Balçova",
+                "Bayındır",
+                "Bayraklı",
+                "Bergama",
+                "Beydağ",
+                "Bornova",
+                "Buca",
+                "Çeşme",
+                "Çiğli",
+                "Dikili",
+                "Foça",
+                "Gaziemir",
+                "Güzelbahçe",
+                "Karabağlar",
+                "Karaburun",
+                "Karşıyaka",
+                "Kemalpaşa",
+                "Kınık",
+                "Kiraz",
+                "Konak",
+                "Menderes",
+                "Menemen",
+                "Narlıdere",
+                "Ödemiş",
+                "Seferihisar",
+                "Selçuk",
+                "Tire",
+                "Torbalı",
+                "Urla"
+            ]
+    ,kars :[
+                "Merkez",
+                "Akyaka",
+                "Arpaçay",
+                "Digor",
+                "Kağızman",
+                "Sarıkamış",
+                "Selim",
+                "Susuz"
+            ]
+    ,kastamonu :[
+                "Merkez",
+                "Abana",
+                "Ağlı",
+                "Araç",
+                "Azdavay",
+                "Bozkurt",
+                "Cide",
+                "Çatalzeytin",
+                "Daday",
+                "Devrekani",
+                "Doğanyurt",
+                "Hanönü",
+                "İhsangazi",
+                "İnebolu",
+                "Küre",
+                "Pınarbaşı",
+                "Seydiler",
+                "Şenpazar",
+                "Taşköprü",
+                "Tosya"
+            ]
+    ,kayseri :[
+                "Akkışla",
+                "Bünyan",
+                "Develi",
+                "Felahiye",
+                "Hacılar",
+                "İncesu",
+                "Kocasinan",
+                "Melikgazi",
+                "Özvatan",
+                "Pınarbaşı",
+                "Sarıoğlan",
+                "Sarız",
+                "Talas",
+                "Tomarza",
+                "Yahyalı",
+                "Yeşilhisar"
+            ]
+    ,kırklareli :[
+                "Merkez",
+                "Babaeski",
+                "Demirköy",
+                "Kofçaz",
+                "Lüleburgaz",
+                "Pehlivanköy",
+                "Pınarhisar",
+                "Vize"
+            ]
+    ,kırşehir : [
+                "Merkez",
+                "Akçakent",
+                "Akpınar",
+                "Boztepe",
+                "Çiçekdağı",
+                "Kaman",
+                "Mucur"
+            ]
+    ,kocaeli : [
+                "Başiskele",
+                "Çayırova",
+                "Darıca",
+                "Derince",
+                "Dilovası",
+                "Gebze",
+                "Gölcük",
+                "İzmit",
+                "Kandıra",
+                "Karamürsel",
+                "Kartepe",
+                "Körfez"
+            ]
+    ,konya : [
+                "Ahırlı",
+                "Akören",
+                "Akşehir",
+                "Altınekin",
+                "Beyşehir",
+                "Bozkır",
+                "Cihanbeyli",
+                "Çeltik",
+                "Çumra",
+                "Derbent",
+                "Derebucak",
+                "Doğanhisar",
+                "Emirgazi",
+                "Ereğli",
+                "Güneysınır",
+                "Hadim",
+                "Halkapınar",
+                "Hüyük",
+                "Ilgın",
+                "Kadınhanı",
+                "Karapınar",
+                "Karatay",
+                "Kulu",
+                "Meram",
+                "Sarayönü",
+                "Selçuklu",
+                "Seydişehir",
+                "Taşkent",
+                "Tuzlukçu",
+                "Yalıhüyük",
+                "Yunak"
+            ]
+    ,kütahya : [
+                "Merkez",
+                "Altıntaş",
+                "Aslanapa",
+                "Çavdarhisar",
+                "Domaniç",
+                "Dumlupınar",
+                "Emet",
+                "Gediz",
+                "Hisarcık",
+                "Pazarlar",
+                "Şaphane",
+                "Simav",
+                "Tavşanlı"
+            ]
+    ,malatya : [
+                "Akçadağ",
+                "Arapgir",
+                "Arguvan",
+                "Battalgazi",
+                "Darende",
+                "Doğanşehir",
+                "Doğanyol",
+                "Hekimhan",
+                "Kale",
+                "Kuluncak",
+                "Pütürge",
+                "Yazıhan",
+                "Yeşilyurt"
+            ]
+    ,manisa : [
+                "Ahmetli",
+                "Akhisar",
+                "Alaşehir",
+                "Demirci",
+                "Gölmarmara",
+                "Gördes",
+                "Kırkağaç",
+                "Köprübaşı",
+                "Kula",
+                "Salihli",
+                "Sarıgöl",
+                "Saruhanlı",
+                "Selendi",
+                "Soma",
+                "Şehzadeler",
+                "Turgutlu",
+                "Yunusemre"
+            ]
+    ,kahramanmaraş : [
+                "Afşin",
+                "Andırın",
+                "Çağlayancerit",
+                "Dulkadiroğlu",
+                "Ekinözü",
+                "Elbistan",
+                "Göksun",
+                "Nurhak",
+                "Onikişubat",
+                "Pazarcık",
+                "Türkoğlu"
+            ]
+    ,mardin :[
+                "Artuklu",
+                "Dargeçit",
+                "Derik",
+                "Kızıltepe",
+                "Mazıdağı",
+                "Midyat",
+                "Nusaybin",
+                "Ömerli",
+                "Savur",
+                "Yeşilli"
+            ]
+    ,muğla : [
+                "Bodrum",
+                "Dalaman",
+                "Datça",
+                "Fethiye",
+                "Kavaklıdere",
+                "Köyceğiz",
+                "Marmaris",
+                "Menteşe",
+                "Milas",
+                "Ortaca",
+                "Seydikemer",
+                "Ula",
+                "Yatağan"
+            ]
+    ,muş : [
+                "Merkez",
+                "Bulanık",
+                "Hasköy",
+                "Korkut",
+                "Malazgirt",
+                "Varto"
+            ]
+    ,nevşehir : [
+                "Merkez",
+                "Acıgöl",
+                "Avanos",
+                "Derinkuyu",
+                "Gülşehir",
+                "Hacıbektaş",
+                "Kozaklı",
+                "Ürgüp"
+            ]
+    ,niğde : [
+                "Merkez",
+                "Altunhisar",
+                "Bor",
+                "Çamardı",
+                "Çiftlik",
+                "Ulukışla"
+            ]
+     [
+                "Akkuş",
+                "Altınordu",
+                "Aybastı",
+                "Çamaş",
+                "Çatalpınar",
+                "Çaybaşı",
+                "Fatsa",
+                "Gölköy",
+                "Gülyalı",
+                "Gürgentepe",
+                "İkizce",
+                "Kabadüz",
+                "Kabataş",
+                "Korgan",
+                "Kumru",
+                "Mesudiye",
+                "Perşembe",
+                "Ulubey",
+                "Ünye"
+            ]
+    ,rize : [
+                "Merkez",
+                "Ardeşen",
+                "Çamlıhemşin",
+                "Çayeli",
+                "Derepazarı",
+                "Fındıklı",
+                "Güneysu",
+                "Hemşin",
+                "İkizdere",
+                "İyidere",
+                "Kalkandere",
+                "Pazar"
+            ]
+    ,sakarya :[
+                "Adapazarı",
+                "Akyazı",
+                "Arifiye",
+                "Erenler",
+                "Ferizli",
+                "Geyve",
+                "Hendek",
+                "Karapürçek",
+                "Karasu",
+                "Kaynarca",
+                "Kocaali",
+                "Pamukova",
+                "Sapanca",
+                "Serdivan",
+                "Söğütlü",
+                "Taraklı"
+            ]
+    ,samsun :[
+                "19 Mayıs",
+                "Alaçam",
+                "Asarcık",
+                "Atakum",
+                "Ayvacık",
+                "Bafra",
+                "Canik",
+                "Çarşamba",
+                "Havza",
+                "İlkadım",
+                "Kavak",
+                "Ladik",
+                "Salıpazarı",
+                "Tekkeköy",
+                "Terme",
+                "Vezirköprü",
+                "Yakakent"
+            ]
+    ,siirt : [
+                "Merkez",
+                "Baykan",
+                "Eruh",
+                "Kurtalan",
+                "Pervari",
+                "Şirvan",
+                "Tillo"
+            ]
+    ,sinop :[
+                "Merkez",
+                "Ayancık",
+                "Boyabat",
+                "Dikmen",
+                "Durağan",
+                "Erfelek",
+                "Gerze",
+                "Saraydüzü",
+                "Türkeli"
+            ]
+    ,sivas : [
+                "Merkez",
+                "Akıncılar",
+                "Altınyayla",
+                "Divriği",
+                "Doğanşar",
+                "Gemerek",
+                "Gölova",
+                "Gürün",
+                "Hafik",
+                "İmranlı",
+                "Kangal",
+                "Koyulhisar",
+                "Suşehri",
+                "Şarkışla",
+                "Ulaş",
+                "Yıldızeli",
+                "Zara"
+            ]
+    ,tekirdağ : [
+                "Çerkezköy",
+                "Çorlu",
+                "Ergene",
+                "Hayrabolu",
+                "Kapaklı",
+                "Malkara",
+                "Marmaraereğlisi",
+                "Muratlı",
+                "Saray",
+                "Süleymanpaşa",
+                "Şarköy"
+            ]
+    ,tokat : [
+                "Merkez",
+                "Almus",
+                "Artova",
+                "Başçiftlik",
+                "Erbaa",
+                "Niksar",
+                "Pazar",
+                "Reşadiye",
+                "Sulusaray",
+                "Turhal",
+                "Yeşilyurt",
+                "Zile"
+            ]
+    ,trabzon : [
+                "Akçaabat",
+                "Araklı",
+                "Arsin",
+                "Beşikdüzü",
+                "Çarşıbaşı",
+                "Çaykara",
+                "Dernekpazarı",
+                "Düzköy",
+                "Hayrat",
+                "Köprübaşı",
+                "Maçka",
+                "Of",
+                "Ortahisar",
+                "Sürmene",
+                "Şalpazarı",
+                "Tonya",
+                "Vakfıkebir",
+                "Yomra"
+            ]
+    ,tunceli : [
+                "Merkez",
+                "Çemişgezek",
+                "Hozat",
+                "Mazgirt",
+                "Nazımiye",
+                "Ovacık",
+                "Pertek",
+                "Pülümür"
+            ]
+    ,şanlıurfa :[
+                "Akçakale",
+                "Birecik",
+                "Bozova",
+                "Ceylanpınar",
+                "Eyyübiye",
+                "Halfeti",
+                "Haliliye",
+                "Harran",
+                "Hilvan",
+                "Karaköprü",
+                "Siverek",
+                "Suruç",
+                "Viranşehir"
+            ]
+    ,uşak :[
+                "Merkez",
+                "Banaz",
+                "Eşme",
+                "Karahallı",
+                "Sivaslı",
+                "Ulubey"
+            ]
+    ,van : [
+                "Bahçesaray",
+                "Başkale",
+                "Çaldıran",
+                "Çatak",
+                "Edremit",
+                "Erciş",
+                "Gevaş",
+                "Gürpınar",
+                "İpekyolu",
+                "Muradiye",
+                "Özalp",
+                "Saray",
+                "Tuşba"
+            ]
+    ,yozgat :[
+                "Merkez",
+                "Akdağmadeni",
+                "Aydıncık",
+                "Boğazlıyan",
+                "Çandır",
+                "Çayıralan",
+                "Çekerek",
+                "Kadışehri",
+                "Saraykent",
+                "Sarıkaya",
+                "Sorgun",
+                "Şefaatli",
+                "Yenifakılı",
+                "Yerköy"
+            ]
+    ,zonguldak : [
+                "Merkez",
+                "Alaplı",
+                "Çaycuma",
+                "Devrek",
+                "Gökçebey",
+                "Karadeniz Ereğli",
+                "Kilimli",
+                "Kozlu"
+            ]
+    ,aksaray :[
+                "Merkez",
+                "Ağaçören",
+                "Eskil",
+                "Gülağaç",
+                "Güzelyurt",
+                "Ortaköy",
+                "Sarıyahşi",
+                "Sultanhanı"
+            ]
+   , bayburt :[
+                "Merkez",
+                "Aydıntepe",
+                "Demirözü"
+            ]
+    ,karaman :[
+                "Merkez",
+                "Ayrancı",
+                "Başyayla",
+                "Ermenek",
+                "Kazımkarabekir",
+                "Sarıveliler"
+            ]
+   , kırıkkale :[
+                "Merkez",
+                "Bahşili",
+                "Balışeyh",
+                "Çelebi",
+                "Delice",
+                "Karakeçili",
+                "Keskin",
+                "Sulakyurt"
+            ]
+   , batman :[
+                "Merkez",
+                "Beşiri",
+                "Gercüş",
+                "Hasankeyf",
+                "Kozluk",
+                "Sason"
+            ]
+  ,  şırnak : [
+                "Merkez",
+                "Beytüşşebap",
+                "Cizre",
+                "Güçlükonak",
+                "İdil",
+                "Silopi",
+                "Uludere"
+            ]
+  ,  bartın : [
+                "Merkez",
+                "Amasra",
+                "Kurucaşile",
+                "Ulus"
+            ]
+  ,  ardahan : [
+                "Merkez",
+                "Çıldır",
+                "Damal",
+                "Göle",
+                "Hanak",
+                "Posof",
+            ]
+  ,  iğdır :[
+                "Merkez",
+                "Aralık",
+                "Karakoyunlu",
+                "Tuzluca"
+            ]
+  ,  yalova : [
+                "Merkez",
+                "Altınova",
+                "Armutlu",
+                "Çınarcık",
+                "Çiftlikköy",
+                "Termal"
+            ]
+   , karabük :[
+                "Merkez",
+                "Eflani",
+                "Eskipazar",
+                "Ovacık",
+                "Safranbolu",
+                "Yenice"
+            ]
+   , kilis : [
+                "Merkez",
+                "Elbeyli",
+                "Musabeyli",
+                "Polateli"
+            ]
+   , osmaniye : [
+                "Merkez",
+                "Bahçe",
+                "Düziçi",
+                "Hasanbeyli",
+                "Kadirli",
+                "Sumbas",
+                "Toprakkale"
+            ]
+   , düzce :[
+                "Merkez",
+                "Akçakoca",
+                "Cumayeri",
+                "Çilimli",
+                "Gölyaka",
+                "Gümüşova",
+                "Kaynaşlı",
+                "Yığılca"
+            ]
+
+    };
+
+    function updateCityOptions() {
+      const countrySelect = document.getElementById('country-select');
+      const citySelect = document.getElementById('city-select');
+      const selectedCountry = countrySelect.value;
+
+      // Clear existing options
+      citySelect.innerHTML = '<option value="">Şehir Seç</option>';
+
+      // Populate city options for selected country
+      if (selectedCountry) {
+        const cities = cityOptions[selectedCountry];
+        for (let i = 0; i < cities.length; i++) {
+          const option = document.createElement('option');
+          option.value = cities[i];
+          option.text = cities[i];
+          citySelect.add(option);
+        }
+      }
+    }
+
+
+
+CKEDITOR.replace('cke', {
+    language: 'tr',
+    height: '200',
+    resize_enabled: false,
+    toolbar: [
+        { name: 'document', items: [ 'Bold', 'Italic'] },
+        { name: 'basicstyles', items: ['RemoveFormat'] },
+        { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'] },
+        { name: 'styles', items: ['Styles', 'Format'] },
+        { name: 'about', items: ['About'] }
+    ]
+});
+
+
+</script>
+{% include 'footer.html' %}
+<br class="mobile-br">
+
+{% endblock %}
+

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="box" >
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item cardss" style="background: rgb(255,242,85);
+            background: linear-gradient(144deg, rgba(255,242,85,1) 0%, rgba(225,234,241,1) 0%, rgba(124,136,139,1) 96%, rgba(95,103,105,1) 100%);">
+            <h6 style="color: black; height: 17px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">Giriş</h6>
+        </li>
+    </ul>
+
+    <div class="cardss" style="background: linear-gradient(328deg, rgba(255,242,85,1) 0%, rgba(172,232,138,1) 0%, rgba(184,224,236,1) 100%, rgba(99,162,179,1) 100%, rgba(96,124,133,1) 100%, rgba(82,166,78,1) 100%);">
+        <div class="container-fluid" style="padding:10px 10px;">
+            <h1 style="color:white;">Giriş Yap</h1>
+            <hr style="border: 2px solid black;">
+
+            <a href="{{ url_for('login') }}" class="button-3 cardss" style="background-color:#1B6B93;width:100%;color:b">
+                Giriş Yap<span style="visibility:hidden">a</span><img src="https://cdn-icons-png.flaticon.com/512/1828/1828445.png" width="25">
+            </a>
+            <p style="visibility:hidden">a</p>
+            <a href="{{ url_for('register') }}" class="button-3 cardss" style="background-color:#5D9C59;width:100%;">
+                Kayıt Ol <span style="visibility:hidden">a</span><img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png" width="25">
+            </a>
+        </div>
+        <br>
+    </div>
+
+</div>
+
+<div  style="position: absolute; bottom: 0;width:100%;">
+    <br class="mobil-br">
+  <div class="footer-pc">
+
+
+ <div class="container-fluid" style="background-color:#2B2B2B;">
+
+    <footer class="py-1 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="#" class="nav-link px-4 ">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" width="40">
+      </a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-4 ">
+      <img src="https://cdn-icons-png.flaticon.com/512/4138/4138124.png" width="45">
+      </a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-4">
+      <img src="https://cdn-icons-png.flaticon.com/512/2504/2504947.png" width="40">
+      </a></li>
+
+    </ul>
+    <p class="text-center text-muted">© 2023 Company, Inc</p>
+  </footer>
+</div>
+          <br class="mobil-br">
+
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,826 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-sm index-container" style="min-height:100%;">
+
+    <div class="container-fluid"></div>
+<div class="row ">
+    <div class="12 justify-content-center" >
+        <br>
+<button id="showRejectDiv" class="sidebar-popbutton cardss" >
+<div class="row">
+    <div class="col-2">
+        <img src="https://img.icons8.com/?size=512&id=15777&format=png" width="20">
+    </div>
+     <div class="col-8">
+         Kategori
+    </div>
+</div>
+
+</button>
+</div>
+    </div>
+ <div class="row my-sidebar">
+      <div class="col-12 " style="margin-top:20px;">
+
+
+<ul class="list-group list-group-flush" style="width: 250px;">
+<li class="list-group-item cardss" style="height:35px;;background:#454545 ">
+  <h6 style="color: white; height: 17px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">Şehir</h6>
+</li>
+                 </ul>
+          <div class="cardss" style="width: 250px;background:white">
+
+              <div class="row">
+
+<span style="visibility:hidden;">as</span>
+
+                  <div class="col-12"  style="text-align: center;">
+
+
+
+<select id="city-select-side" style="width:90%;" name="city" onchange="redirect_side()">
+
+  {% if is_şehir %}
+  <option   value="{{ şehir }}" >{{ şehir }}</option>
+
+
+  {% endif %}
+    <option value="0">Tüm Şehirler</option>
+   <option value="adana">Adana</option>
+  <option value="adıyaman">Adıyaman</option>
+  <option value="afyon">Afyon</option>
+  <option value="ağrı">Ağrı</option>
+  <option value="amasya">Amasya</option>
+  <option value="ankara">Ankara</option>
+  <option value="antalya">Antalya</option>
+  <option value="artvin">Artvin</option>
+  <option value="aydın">Aydın</option>
+  <option value="balıkesir">Balıkesir</option>
+  <option value="bilecik">Bilecik</option>
+  <option value="bingöl">Bingöl</option>
+  <option value="bitlis">Bitlis</option>
+  <option value="bolu">Bolu</option>
+  <option value="burdur">Burdur</option>
+  <option value="bursa">Bursa</option>
+  <option value="çanakkale">Çanakkale</option>
+  <option value="çankırı">Çankırı</option>
+  <option value="çorum">Çorum</option>
+  <option value="denizli">Denizli</option>
+  <option value="diyarbakır">Diyarbakır</option>
+  <option value="edirne">Edirne</option>
+  <option value="elazığ">Elazığ</option>
+  <option value="erzincan">Erzincan</option>
+  <option value="erzurum">Erzurum</option>
+  <option value="eskişehir">Eskişehir</option>
+  <option value="gaziantep">Gaziantep</option>
+  <option value="giresun">Giresun</option>
+  <option value="gümüşhane">Gümüşhane</option>
+  <option value="hakkari">Hakkari</option>
+  <option value="hatay">Hatay</option>
+  <option value="isparta">Isparta</option>
+  <option value="i̇çel (mersin)">İçel (Mersin)</option>
+  <option value="i̇stanbul">İstanbul</option>
+  <option value="i̇zmir">İzmir</option>
+  <option value="kars">Kars</option>
+  <option value="kastamonu">Kastamonu</option>
+  <option value="kayseri">Kayseri</option>
+  <option value="kırklareli">Kırklareli</option>
+  <option value="kırşehir">Kırşehir</option>
+  <option value="kocaeli">Kocaeli</option>
+  <option value="konya">Konya</option>
+  <option value="kütahya">Kütahya</option>
+  <option value="malatya">Malatya</option>
+  <option value="manisa">Manisa</option>
+  <option value="k.maraş">K.maraş</option>
+  <option value="mardin">Mardin</option>
+  <option value="muğla">Muğla</option>
+  <option value="muş">Muş</option>
+  <option value="nevşehir">Nevşehir</option>
+  <option value="niğde">Niğde</option>
+  <option value="ordu">Ordu</option>
+  <option value="rize">Rize</option>
+  <option value="sakarya">Sakarya</option>
+  <option value="samsun">Samsun</option>
+  <option value="siirt">Siirt</option>
+  <option value="sinop">Sinop</option>
+  <option value="sivas">Sivas</option>
+  <option value="tekirdağ">Tekirdağ</option>
+  <option value="tokat">Tokat</option>
+  <option value="trabzon">Trabzon</option>
+  <option value="tunceli">Tunceli</option>
+  <option value="şanlıurfa">Şanlıurfa</option>
+  <option value="uşak">Uşak</option>
+  <option value="van">Van</option>
+  <option value="yozgat">Yozgat</option>
+  <option value="zonguldak">Zonguldak</option>
+  <option value="aksaray">Aksaray</option>
+  <option value="bayburt">Bayburt</option>
+  <option value="karaman">Karaman</option>
+  <option value="kırıkkale">Kırıkkale</option>
+  <option value="batman">Batman</option>
+  <option value="şırnak">Şırnak</option>
+  <option value="bartın">Bartın</option>
+  <option value="ardahan">Ardahan</option>
+  <option value="iğdır">Iğdır</option>
+  <option value="yalova">Yalova</option>
+  <option value="karabük">Karabük</option>
+  <option value="kilis">Kilis</option>
+  <option value="osmaniye">Osmaniye</option>
+  <option value="düzce">Düzce</option>
+</select>
+
+
+
+                  </div>
+
+<span style="visibility:hidden;">as</span>
+            </div>
+          </div>
+<br>
+
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white " style="width: 250px; background-color:#B2B2B2">
+
+
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+
+    </a>
+ <ul class="nav nav-pills flex-column ">
+          <li class="nav-item">
+        <a href="{{ url_for('kategori', kategori='Vasıta', city=none if not is_şehir else şehir) }}" class="nav-link active side-bar " aria-current="page" style="padding-right:50px;background-color:white;">
+
+            <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/2962/2962303.png" width="32"> <span style="margin-right:70px;color:black">Vasıta</span>
+        </a>
+      </li>
+    </ul>
+   <hr>
+
+ <ul class="nav nav-pills flex-column ">
+          <li class="nav-item">
+        <a href="{{ url_for('kategori', kategori='Emlak', city=none if not is_şehir else şehir) }}" class="nav-link active side-bar " aria-current="page" style="padding-right:50px;background-color:white;">
+
+            <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="	https://cdn-icons-png.flaticon.com/512/9202/9202660.png" width="32"> <span style="margin-right:70px;color:black">Emlak</span>
+        </a>
+      </li>
+    </ul>
+   <hr>
+
+
+ <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+        <a href="{{ url_for('kategori', kategori='İnşaat', city=none if not is_şehir else şehir) }}" class="nav-link active side-bar" aria-current="page" style="padding-right:50px;background-color:white;">
+
+            <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="	https://cdn-icons-png.flaticon.com/512/497/497436.png" width="32"> <span style="margin-right:70px;color:black">İnşaat</span>
+        </a>
+      </li>
+
+
+    </ul>
+   <hr>
+
+     <ul class="nav nav-pills flex-column ">
+            <li class="nav-item">
+        <a href="{{ url_for('kategori', kategori='Yedek Parça', city=none if not is_şehir else şehir) }}" class="nav-link active side-bar" aria-current="page" style="text-align:left;background-color:white;">
+
+            <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="	https://cdn-icons-png.flaticon.com/512/2092/2092041.png" width="32"> <span style="margin-right:10px;color:black">Yedek Parça</span>
+        </a>
+      </li>
+
+    </ul>
+       <hr>
+
+
+         <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+       <a href="{{ url_for('kategori', kategori='Elektronik ve Bilgisayar', city=none if not is_şehir else şehir) }}" class="nav-link active side-bar" aria-current="page" style="text-align:left;background-color:white;">
+
+          <svg class="bi " width="160" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/2777/2777142.png" width="34"> <span style="font-size:13px;color:black">Elektronik ve Bilgisayar</span>
+        </a>
+      </li>
+
+    </ul>
+   <hr>
+
+
+
+         <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+       <a    href="{{ url_for('kategori', kategori='İkinci El ve Sıfır Alışveriş', city=none if not is_şehir else şehir) }}" class="nav-link active side-bar" aria-current="page" style="padding-right:50px;background-color:white;">
+
+          <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="	https://cdn-icons-png.flaticon.com/512/3737/3737372.png"  width="33"> <span style="font-size:16px;margin-right:-20px;color:black">İkinci El ve Sıfır Alışveriş</span>
+        </a>
+      </li>
+    </ul>
+   <hr>
+
+
+
+          <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+       <a  href="{{ url_for('kategori', kategori='Kitaplar, Müzik ve Oyunlar', city=none if not is_şehir else şehir) }}" class="nav-link active side-bar" aria-current="page" style="padding-right:50px;background-color:white;">
+
+           <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/3351/3351767.png"  width="35"> <span style="font-size:16px;margin-right:-35px;color:black">Kitaplar, Müzik ve Oyunlar</span>
+        </a>
+      </li>
+
+    </ul>
+   <hr>
+
+
+          <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+       <a href="{{ url_for('kategori', kategori='Giyim ve Takı', city=none if not is_şehir else şehir) }}" class="nav-link active side-bar" aria-current="page" style="padding-right:50px;background-color:white;">
+
+
+           <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="	https://cdn-icons-png.flaticon.com/512/3248/3248841.png"  width="32"> <span style="margin-right:0px;color:black">Giyim ve Takı</span>
+        </a>
+      </li>
+    </ul>
+   <hr>
+
+
+
+ <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+       <a href="{{ url_for('kategori', kategori='Ev & Bahçe', city=none if not is_şehir else şehir) }}" class="nav-link active side-bar" aria-current="page" style="padding-right:50px;background-color:white;">
+
+          <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/942/942165.png" width="33"> <span style="margin-right:10px;color:black">Ev & Bahçe</span>
+        </a>
+      </li>
+
+    </ul>
+   <hr>
+
+         <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+      <a href="{{ url_for('kategori', kategori='Spor ve Fitness', city=none if not is_şehir else şehir) }}" class="nav-link active side-bar" aria-current="page" style="padding-right:50px;background-color:white;">
+
+          <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/4163/4163679.png" width="34"> <span style="margin-right:00px;color:black">Spor ve Fitness</span>
+
+
+        </a>
+
+      </li>
+
+    </ul>
+   <hr>
+
+
+
+  </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="row ">
+
+      <div class="col-3 col-lg-3 col-md-4 col-sm-4 my-div" style="margin-top:20px;">
+
+
+<ul class="list-group list-group-flush" style="width: 250px;">
+<li class="list-group-item cardss" style="height:35px;;background-color:#454545 ">
+  <h6 style="color: white; height: 17px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">Şehir</h6>
+</li>
+                 </ul>
+          <div class="cardss" style="width: 250px;">
+
+              <div class="row">
+
+<span style="visibility:hidden;">as</span>
+
+                  <div class="col-12"  style="text-align: center;">
+
+
+
+<select id="city-select"  style="width:90%;" name="city" onchange="redirect()">
+
+  {% if is_şehir %}
+  <option   value="{{ şehir }}" >{{ şehir }}</option>
+
+
+  {% endif %}
+    <option value="0">Tüm Şehirler</option>
+   <option value="adana">Adana</option>
+  <option value="adıyaman">Adıyaman</option>
+  <option value="afyon">Afyon</option>
+  <option value="ağrı">Ağrı</option>
+  <option value="amasya">Amasya</option>
+  <option value="ankara">Ankara</option>
+  <option value="antalya">Antalya</option>
+  <option value="artvin">Artvin</option>
+  <option value="aydın">Aydın</option>
+  <option value="balıkesir">Balıkesir</option>
+  <option value="bilecik">Bilecik</option>
+  <option value="bingöl">Bingöl</option>
+  <option value="bitlis">Bitlis</option>
+  <option value="bolu">Bolu</option>
+  <option value="burdur">Burdur</option>
+  <option value="bursa">Bursa</option>
+  <option value="çanakkale">Çanakkale</option>
+  <option value="çankırı">Çankırı</option>
+  <option value="çorum">Çorum</option>
+  <option value="denizli">Denizli</option>
+  <option value="diyarbakır">Diyarbakır</option>
+  <option value="edirne">Edirne</option>
+  <option value="elazığ">Elazığ</option>
+  <option value="erzincan">Erzincan</option>
+  <option value="erzurum">Erzurum</option>
+  <option value="eskişehir">Eskişehir</option>
+  <option value="gaziantep">Gaziantep</option>
+  <option value="giresun">Giresun</option>
+  <option value="gümüşhane">Gümüşhane</option>
+  <option value="hakkari">Hakkari</option>
+  <option value="hatay">Hatay</option>
+  <option value="isparta">Isparta</option>
+  <option value="i̇çel (mersin)">İçel (Mersin)</option>
+  <option value="i̇stanbul">İstanbul</option>
+  <option value="i̇zmir">İzmir</option>
+  <option value="kars">Kars</option>
+  <option value="kastamonu">Kastamonu</option>
+  <option value="kayseri">Kayseri</option>
+  <option value="kırklareli">Kırklareli</option>
+  <option value="kırşehir">Kırşehir</option>
+  <option value="kocaeli">Kocaeli</option>
+  <option value="konya">Konya</option>
+  <option value="kütahya">Kütahya</option>
+  <option value="malatya">Malatya</option>
+  <option value="manisa">Manisa</option>
+  <option value="k.maraş">K.maraş</option>
+  <option value="mardin">Mardin</option>
+  <option value="muğla">Muğla</option>
+  <option value="muş">Muş</option>
+  <option value="nevşehir">Nevşehir</option>
+  <option value="niğde">Niğde</option>
+  <option value="ordu">Ordu</option>
+  <option value="rize">Rize</option>
+  <option value="sakarya">Sakarya</option>
+  <option value="samsun">Samsun</option>
+  <option value="siirt">Siirt</option>
+  <option value="sinop">Sinop</option>
+  <option value="sivas">Sivas</option>
+  <option value="tekirdağ">Tekirdağ</option>
+  <option value="tokat">Tokat</option>
+  <option value="trabzon">Trabzon</option>
+  <option value="tunceli">Tunceli</option>
+  <option value="şanlıurfa">Şanlıurfa</option>
+  <option value="uşak">Uşak</option>
+  <option value="van">Van</option>
+  <option value="yozgat">Yozgat</option>
+  <option value="zonguldak">Zonguldak</option>
+  <option value="aksaray">Aksaray</option>
+  <option value="bayburt">Bayburt</option>
+  <option value="karaman">Karaman</option>
+  <option value="kırıkkale">Kırıkkale</option>
+  <option value="batman">Batman</option>
+  <option value="şırnak">Şırnak</option>
+  <option value="bartın">Bartın</option>
+  <option value="ardahan">Ardahan</option>
+  <option value="iğdır">Iğdır</option>
+  <option value="yalova">Yalova</option>
+  <option value="karabük">Karabük</option>
+  <option value="kilis">Kilis</option>
+  <option value="osmaniye">Osmaniye</option>
+  <option value="düzce">Düzce</option>
+</select>
+
+
+
+                  </div>
+
+<span style="visibility:hidden;">as</span>
+            </div>
+          </div>
+
+
+<br>
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white " style="width: 250px; background-color:#B2B2B2">
+
+
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+
+    </a>
+
+    <ul class="nav nav-pills flex-column " >
+      <li class="nav-item" >
+
+
+        <a href="{{ url_for('kategori', kategori='Vasıta', city=none if not is_şehir else şehir , search_query=none if not filter else search_query) }}" class="nav-link active side-bar" aria-current="page" style="text-align:left;background-color:white;">
+          <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+<img src="https://cdn-icons-png.flaticon.com/512/2962/2962303.png" width="35">
+        <span style="margin-right:70px;color:black;" >Vasıta</span>
+
+
+        </a>
+      </li>
+    </ul>
+
+
+
+   <hr>
+
+
+
+
+
+
+
+ <ul class="nav nav-pills flex-column ">
+          <li class="nav-item">
+        <a href="{{ url_for('kategori', kategori='Emlak', city=none if not is_şehir else şehir , search_query=none if not filter else search_query) }}" class="nav-link active side-bar " aria-current="page" style="text-align:left;background-color:white;">
+
+            <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="	https://cdn-icons-png.flaticon.com/512/9202/9202660.png" width="35"> <span style="margin-right:70px;color:black">Emlak</span>
+        </a>
+      </li>
+    </ul>
+   <hr>
+
+
+ <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+        <a  href="{{ url_for('kategori', kategori='İnşaat', city=none if not is_şehir else şehir , search_query=none if not filter else search_query) }}" class="nav-link active side-bar" aria-current="page" style="text-align:left;background-color:white;">
+            <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="	https://cdn-icons-png.flaticon.com/512/497/497436.png" width="35"> <span style="margin-right:70px;color:black">İnşaat</span>
+        </a>
+      </li>
+
+
+    </ul>
+   <hr>
+
+     <ul class="nav nav-pills flex-column ">
+            <li class="nav-item">
+        <a  href="{{ url_for('kategori', kategori='Yedek Parça', city=none if not is_şehir else şehir , search_query=none if not filter else search_query) }}"  class="nav-link active side-bar" aria-current="page" style="text-align:left;background-color:white;">
+
+            <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="	https://cdn-icons-png.flaticon.com/512/2092/2092041.png" width="35"> <span style="margin-right:10px;color:black">Yedek Parça</span>
+        </a>
+      </li>
+
+    </ul>
+       <hr>
+
+
+         <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+    <a  href="{{ url_for('kategori', kategori='Elektronik ve Bilgisayar', city=none if not is_şehir else şehir , search_query=none if not filter else search_query) }}"  class="nav-link active side-bar" aria-current="page" style="text-align:left;background-color:white;">
+
+          <svg class="bi " width="160" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/2777/2777142.png" width="36"> <span style="font-size:13px;color:black">Elektronik ve Bilgisayar</span>
+        </a>
+      </li>
+
+    </ul>
+   <hr>
+
+
+
+         <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+      <a  href="{{ url_for('kategori', kategori='İkinci El ve Sıfır Alışveriş', city=none if not is_şehir else şehir , search_query=none if not filter else search_query) }}"  class="nav-link active side-bar" aria-current="page" style="padding-right:50px;background-color:white;">
+
+          <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="	https://cdn-icons-png.flaticon.com/512/3737/3737372.png"  width="35"> <span style="font-size:16px;margin-right:-20px;color:black">İkinci El ve Sıfır Alışveriş</span>
+        </a>
+      </li>
+    </ul>
+   <hr>
+
+
+
+          <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+      <a  href="{{ url_for('kategori', kategori='Kitaplar, Müzik ve Oyunlar', city=none if not is_şehir else şehir , search_query=none if not filter else search_query) }}"  class="nav-link active side-bar" aria-current="page" style="padding-right:50px;background-color:white;">
+
+           <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/3351/3351767.png"  width="37"> <span style="font-size:16px;margin-right:-35px;color:black">Kitaplar, Müzik ve Oyunlar</span>
+        </a>
+      </li>
+
+    </ul>
+   <hr>
+
+
+          <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+       <a  href="{{ url_for('kategori', kategori='Giyim ve Takı', city=none if not is_şehir else şehir , search_query=none if not filter else search_query) }}"  class="nav-link active side-bar" aria-current="page" style="text-align:left;background-color:white;">
+
+
+           <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="	https://cdn-icons-png.flaticon.com/512/3248/3248841.png"  width="35"> <span style="margin-right:0px;color:black">Giyim ve Takı</span>
+        </a>
+      </li>
+    </ul>
+   <hr>
+
+
+
+ <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+        <a  href="{{ url_for('kategori', kategori='Ev & Bahçe', city=none if not is_şehir else şehir , search_query=none if not filter else search_query) }}"  class="nav-link active side-bar" aria-current="page" style="text-align:left;background-color:white;">
+
+          <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/942/942165.png" width="35"> <span style="margin-right:10px;color:black">Ev & Bahçe</span>
+        </a>
+      </li>
+
+    </ul>
+   <hr>
+
+         <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+        <a  href="{{ url_for('kategori', kategori='Spor ve Fitness', city=none if not is_şehir else şehir , search_query=none if not filter else search_query) }}"  class="nav-link active side-bar" aria-current="page" style="text-align:left;background-color:white;">
+
+          <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://cdn-icons-png.flaticon.com/512/4163/4163679.png" width="35"> <span style="margin-right:00px;color:black">Spor ve Fitness</span>
+
+
+        </a>
+
+      </li>
+
+    </ul>
+   <hr>
+
+  </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="col-8 col-xs-12">
+
+      <div class="container-md ürün-container " style="margin-top: -120px;">
+
+
+        <div class="container " style=" margin-left:auto;margin-right:auto;">
+
+            {% if is_şehir %}
+
+               <div class="row justify-content-center posts-row" >
+
+                   <div class="col-12" style="margin-top:-20px;">
+              <div class="cardss" >
+
+                              <h6 style="color:black;margin:15px 0px;"><span style="font-weight:bold;"> " {{ şehir }} "</span> İlindesin</h6>
+
+              </div>
+                       </div>
+                  </div>
+
+            {% endif %}
+
+          <div class="row justify-content-center posts-row">
+
+               {% if filter and filter_post_sayi == 0 %}
+
+                        <div class="row">
+              <div class="col-1"></div>
+                   <div class="col-11">
+              <div style="background-color:#F9F5F6;border-radius:15px;padding:1px;box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px, rgba(0, 0, 0, 0.1) 0px 7px 5px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; }">
+
+                              <h6 style="color:black;margin:15px 0px;"><span style="font-weight:bold;"> "{{search_query }} "</span>   İle Alakalı İlan Bulunamadı</h6>
+
+              </div>
+                       </div>
+                  </div>
+
+    {%  elif filter and  filter_post_sayi > 0 %}
+                    <div class="row">
+              <div class="col-1"></div>
+                   <div class="col-11">
+                           <div style="background-color:#F9F5F6;border-radius:15px;padding:1px;">
+
+                              <h6 style="color:black;margin:15px 0px;"><span style="font-weight:bold;"> " {{search_query}} "</span>   İle Alakalı Sonuçlar</h6>
+                  </div>
+                       </div>
+                  </div>
+
+                <hr style="border:1px solid black;margin-top:10px">
+            {% endif %}
+
+              {% if filter == False %}
+
+            {% for post in posts %}
+              <div class="col-lg-3 col-md-4 mb-4 col-sm-4 col-xs-6 col-6" style="height: 150px;">
+<form action="/ilan-detay" method="POST" style="margin-top:5px ;">
+
+  <input type="hidden" name="post_id" value="{{ post.id }}">
+ <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+
+                <div class="card h-100 cardss">
+
+
+{% if post.images[0]  %}
+                    <div class="img-wrapper">
+                      <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" onclick="showImageInCarousel({{ loop.index0 }})">
+                    </div>
+{% else %}
+            <div class="img-wrapper">
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+                    </div>
+
+{% endif %}
+
+
+                  <h6 class="card-title text-center" style="white-space: nowrap;overflow:hidden;padding-bottom:7px;padding-top:2px;padding-left:5px;text-overflow: ellipsis">{{ post.title }}</h6>
+                </div>
+
+              </a>
+</form>
+
+            </div>
+            {% endfor %}
+
+        {% elif filter == True %}
+                 {% for post in filtered_posts %}
+    <div class="col-lg-3 col-md-4 mb-4 col-sm-6" style="height: 220px;">
+<form action="/ilan-detay" method="POST" style="margin-top:5px ;">
+
+  <input type="hidden" name="post_id" value="{{ post.id }}">
+ <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+
+                <div class="card h-100 cardss">
+{% if post.images[0]  %}
+                    <div class="img-wrapper">
+                      <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" onclick="showImageInCarousel({{ loop.index0 }})">
+                    </div>
+{% else %}
+            <div class="img-wrapper">
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+            </div>
+{% endif %}
+                  <h6 class="card-title text-center" style="white-space: nowrap;overflow:hidden;padding-bottom:7px;padding-top:2px;padding-left:5px;text-overflow: ellipsis"">{{ post.title }}</h6>
+                </div>
+              </a>
+</form>
+            </div>
+            {% endfor %}
+
+
+
+
+              {% endif %}
+<hr>
+<div class="container-fluid" style="background-color: #EEEEE;">
+  <form method="POST" action="" id="myForm">
+    <div class="row justify-content-center">
+      {% set start_index = ((page // 10) * 10) + 1 %}
+      {% set end_index = start_index + 9 %}
+      {% for a in range(start_index, start_index + 10) %}
+        {% if a <= nav_number %}
+          <div class="col-1 page-nav-button">
+            <input type="submit" name="page" class="button-12" value="{{ a }}">
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="row justify-content-center" >
+       {% if page != 0 %}
+        <div class="col-2 page-nav-button">
+          <button type="submit" name="page" class="button-12" value="{{ page - 1 }}">
+            <img src="https://img.icons8.com/?size=512&id=37587&format=png" width="20">
+          </button>
+        </div>
+      {% endif %}
+      {% if nav_number > page + 1 %}
+        <div class="col-2 page-nav-button">
+          <button type="submit" name="page" class="button-12" value="{{ page + 2 }}">
+            <img src="https://img.icons8.com/?size=512&id=37586&format=png" width="20">
+          </button>
+        </div>
+      {% endif %}
+
+    </div>
+  </form>
+</div>
+
+<h4 style="visibility:hidden;">asdsa</h4>
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <br><br>
+
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+  $('.dropdown-toggle').click(function() {
+    $(this).parent().toggleClass('show-dropdown');
+  });
+});
+
+$(document).on('click', function(e) {
+  if (!$('.dropdown').is(e.target) && $('.dropdown').has(e.target).length === 0) {
+    $('.dropdown').removeClass('show-dropdown');
+  }
+});
+
+
+   const button = document.querySelector('.sidebar-popbutton');
+    const sidebar = document.querySelector('.my-sidebar');
+
+    button.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+function redirect() {
+    var selectElement = document.getElementById("city-select");
+    var selectedOption = selectElement.value;
+
+    if (selectedOption) {
+    let url = '/?şehir=' + selectedOption;
+
+    {% if filter %}
+        url = '/' + selectedOption + '?search=' + '{{ search_query }}';
+    {% endif %}
+
+  window.location.href = url;
+        }
+
+  }
+
+function redirect_side() {
+    var selectElement = document.getElementById("city-select-side");
+    var selectedOption = selectElement.value;
+
+    if (selectedOption) {
+    let url = '/?şehir=' + selectedOption;
+
+    {% if filter %}
+        url = '/' + selectedOption + '?search=' + '{{ search_query }}';
+    {% endif %}
+
+  window.location.href = url;
+        }
+
+  }
+
+
+  var form = document.getElementById('myForm');
+  form.action = getCurrentURL(); // Assuming you have the getCurrentURL() function defined as mentioned before.
+
+  function getCurrentURL() {
+    return window.location.href;
+  }
+
+
+
+
+</script>
+
+{% include 'footer.html' %}
+<br class="mobile-br">
+
+
+{% endblock %}
+

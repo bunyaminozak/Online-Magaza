@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-md" style="background-color:white;padding:0px 15px;margin-top:10px;" >
+
+
+
+<br>
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-12 " style="background-color:white;">
+   <div class="cardss" style="background-color:white;">
+ <ul class="list-group list-group-flush">
+<li class="list-group-item cardss" style="background: rgb(255,242,85);
+background: linear-gradient(144deg, rgba(255,242,85,1) 0%, rgba(225,234,241,1) 0%, rgba(124,136,139,1) 96%, rgba(95,103,105,1) 100%);">
+  <h5 style="color: black; height: 17px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">İletişim</h5>
+</li>
+                 </ul>
+      <div class="container-fluid ">
+          <div class="row " style="padding:15px;margin:10px 0px;">
+
+            <p class="card-texta cardss" style="color: black;margin-bottom: 0px;background-color:#EEEEEE;padding:5px;  ">{{ user.name }} {{ user.last_name }}</p>
+       <br>
+              <hr style="border:3px solid black;padding-top: 0px;margin-top: 20px;">
+
+          <button class="button-3 cardss"   id="openMessageButton" style="{{ 'display:none' if user.id == current_user.id  }}"> Mesaj Gönder</button>
+
+              </div>
+    <hr>
+</div>
+        </div>
+</div>
+
+        <div id="popup-mesaj" class="popup">
+  <div class="popup-content">
+    <div class="posts-section">
+      <h3>Mesaj Gönder</h3>
+{% if  is_user == false  %}
+        <hr>
+
+
+   <p style="color:red;"> Önce Hesabınıza Giriş Yapın veya Kayıt Olun</p>
+
+{% elif  user.id == current_user.id  %}
+        <hr>
+         <p style="color:red;"> Kendine Mesaj Gönderemessin</p>
+
+
+  {% endif %}
+
+
+
+      <div class="row justify-content-center">
+
+      </div>
+    </div>
+    <textarea id="inputField-mesaj" rows="10" required="1" placeholder="Enter text" style="width: 100%; resize: none;"></textarea>
+
+      {% if  is_user == true  or user.id != current_user.id  %}
+
+      <button id="submitButton-mesaj" onclick="selectPost(555)">Submit</button>
+        {% else %}
+            <button id="submitButton-mesaj" style="display:none; " onclick="selectPost(555)">Submit</button>
+
+      {% endif %}
+
+      <button id="closeButton-mesaj">Close</button>
+  </div>
+</div>
+
+
+ <div class="col-1 " style="background-color:white;">
+
+</div>
+
+
+ <div class="col-lg-7 col-md-7 col-sm-7 col-12" style="background-color:white;">
+
+
+
+<div class="cardss" style="background-color:white;   ">
+ <ul class="list-group list-group-flush">
+<li class="list-group-item cardss" style="background: rgb(255,242,85);
+background: linear-gradient(144deg, rgba(255,242,85,1) 0%, rgba(225,234,241,1) 0%, rgba(124,136,139,1) 96%, rgba(95,103,105,1) 100%);">
+  <h6 style="color: black; height: 17px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">Genel Değerlendirme</h6>
+</li>
+<div class="panel">
+ <div class="row" style=" padding: 15px">
+
+<div class="row w-100    justify-content-center" style="margin-bottom:15px;">
+        <div class="col-12" style="text-align:center;width:50%;">
+             <div class="container-fluid cardss" style="background-color:#EEEEE;">
+<div class="text-center">
+     <hr style="margin-bottom: 9px;margin-top: 0px;">
+ <h4 ><span  style="background-color:E4DCCF; padding:5px;border-radius:5px" class="label label-default cardss" >{{ post_sayı }}</span></h4>
+ <span class="label label-info">Toplam İlan Sayısı</span>
+    <hr>
+    </div>
+
+
+        </div>
+        </div>
+    </div>
+              <hr style="border:4px solid black;padding-top: 0px;margin-top: 0px;">
+
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6" >
+<div class="container-fluid cardss" style="background-color:#DF2E38;">
+<div class="text-center">
+       <hr style="margin-bottom: 9px;">
+ <h4><span  style="background-color:#F24C3D; padding:5px;border-radius:5px" id="totfollowed" class="label label-default cardss">{{ take_number }}</span></h4>
+ <span class="label label-info ">Aldığı Teklifler Sayısı</span>
+    <hr>
+    </div>
+
+        </div>
+</div>
+
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6 " >
+    <div class="container-fluid cardss" style="background-color:#5D9C59;">
+<div class="text-center">
+    <hr style="margin-bottom: 9px;">
+ <h4   ><span style="background-color:#A0C49D; padding:5px;border-radius:5px " id="followed" class="label label-default cardss">{{ send_number }}</span></h4>
+ <span class="label label-info">Verdiği Teklifler Sayısı</span>
+    <hr>
+    </div>
+
+
+        </div>
+            </div>
+</div>
+
+
+                 </ul>
+        </div>
+</div>
+</div>
+<!-- class="col-lg-2 col-md-3 col-sm-6 arabosluk" İLanlarım kısmı-->
+<hr>
+
+<div class="col-12">
+       <div class="cardss" style="background-color:white;">
+ <ul class="list-group list-group-flush">
+<li class="list-group-item cardss" style="background: rgb(255,242,85);background: linear-gradient(144deg, rgba(255,242,85,1) 0%, rgba(225,234,241,1) 0%, rgba(124,136,139,1) 96%, rgba(95,103,105,1) 100%);">
+  <h6 style="color: black; height: 17px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">Üyenin Yayında İlanları </h6>
+</li>
+                 </ul>
+
+
+    <div class="row" style="padding:17px 25px 35px 25px;">
+
+
+ {% for post in user_posts %}
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-6 arabosluk"  style="height: 200px;padding:15px;">
+            <form action="/ilan-detay" method="POST" style="margin-top:5px ;">
+
+  <input type="hidden" name="post_id" value="{{ post.id }}">
+ <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+
+                <div class="card h-100 cardss">
+{% if post.images[0]  %}
+                    <div class="img-wrapper">
+                      <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" onclick="showImageInCarousel({{ loop.index0 }})">
+                    </div>
+{% else %}
+            <div class="img-wrapper">
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+            </div>
+{% endif %}
+                  <h6 class="card-title text-center" style="white-space: nowrap;overflow:hidden;padding-bottom:7px;padding-top:2px;padding-left:5px;text-overflow: ellipsis">{{ post.title }}</h6>
+                </div>
+              </a>
+</form>
+            </div>
+            {% endfor %}
+
+<!-- <div class="col-lg-2 col-md-3 col-sm-6 arabosluk" >-->
+<!--posts-->
+<!-- </div>-->
+
+
+<div class="container-fluid" style="background-color: #EEEEE;">
+  <form method="POST" action="" id="myForm">
+    <div class="row justify-content-center">
+      {% set start_index = ((page // 10) * 10) + 1 %}
+      {% set end_index = start_index + 9 %}
+      {% for a in range(start_index, start_index + 10) %}
+        {% if a <= nav_number %}
+          <div class="col-1 page-nav-button">
+            <input type="submit" name="page" class="button-12" value="{{ a }}">
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="row justify-content-center" >
+       {% if page != 0 %}
+        <div class="col-2 page-nav-button">
+          <button type="submit" name="page" class="button-12" value="{{ page - 1 }}">
+            <img src="https://img.icons8.com/?size=512&id=37587&format=png" width="20">
+          </button>
+        </div>
+      {% endif %}
+      {% if nav_number > page + 1 %}
+        <div class="col-2 page-nav-button">
+          <button type="submit" name="page" class="button-12" value="{{ page + 2 }}">
+            <img src="https://img.icons8.com/?size=512&id=37586&format=png" width="20">
+          </button>
+        </div>
+      {% endif %}
+
+    </div>
+  </form>
+</div>
+
+
+
+ </div>
+</div>
+</div>
+
+<br>
+</div>
+
+
+{% include 'footer.html' %}
+
+<script>
+
+ let selectedPost = '';
+
+  function selectPost(title) {
+    selectedPost = title;
+    console.log('Selected Post:', selectedPost);
+  }
+
+  document.getElementById('submitButton-mesaj').addEventListener('click', function() {
+    const formData = document.getElementById('inputField-mesaj').value;
+    console.log('Selected Post:', selectedPost);
+    console.log('Form Data:', formData);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/message-data-base', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+    console.log('Response:', xhr.responseText);
+
+    // Create a notification element
+    var notification = document.createElement('div');
+    notification.innerHTML = 'Mesajınız Gönderildi';
+    notification.className = 'notification';
+
+    // Apply CSS styles to the notification element
+    notification.style.position = 'fixed';
+    notification.style.top = '0';
+    notification.style.left = '0';
+    notification.style.width = '100%';
+    notification.style.padding = '10px';
+    notification.style.backgroundColor = '#5D9C59';
+    notification.style.color = '#fff';
+    notification.style.fontWeight = 'bold';
+    notification.style.textAlign = 'center';
+    notification.style.zIndex = '9999';
+
+    // Append the notification element to the body of the page
+    document.body.appendChild(notification);
+
+    // Hide the popup-mesaj element
+    document.getElementById('popup-mesaj').style.display = 'none';
+
+    // Remove the notification after a certain period of time (e.g., 3 seconds)
+    setTimeout(function() {
+        document.body.removeChild(notification);
+    }, 3000);
+}
+
+
+    };
+    const data = JSON.stringify({
+      post: selectedPost,
+      form: formData,
+      to_user_id: '{{ user.id }}',
+
+    });
+    xhr.send(data);
+
+    // Reset selected post and form data
+    selectedPost = '';
+    document.getElementById('inputField-mesaj').value = '';
+  });
+
+  document.getElementById('openMessageButton').addEventListener('click', function() {
+    document.getElementById('popup-mesaj').style.display = 'block';
+  });
+
+  document.getElementById('closeButton-mesaj').addEventListener('click', function() {
+    document.getElementById('popup-mesaj').style.display = 'none';
+    selectedPost = '';
+    document.getElementById('inputField-mesaj').value = '';
+  });
+
+
+
+if ( window.history.replaceState ) {
+
+window.history.replaceState( null, null, window.location.href );
+
+}
+
+</script>
+
+
+{% endblock %}

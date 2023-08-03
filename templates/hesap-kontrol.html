@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+<div class="box" >
+     <ul class="list-group list-group-flush">
+<li class="list-group-item cardss" style="background: linear-gradient(to bottom, #ebebeb, #ccc);">
+  <h6 style="color: black; height: 17px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">Hesap Kontrol</h6>
+</li>
+                 </ul>
+
+    <div class="cardss"style="background: linear-gradient(to bottom, #A0D8B3, #E5F9DB);" >
+        <div class="container-fluid" style="padding:10px 10px;">
+<h1> Hesap Kontrol </h1>
+    <hr style="border: 2px solid black;">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p style="color:red;">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+
+
+    <form action="{{ url_for('hesap_kontrol') }}" method="post">
+        <input type="text" name="email" value="{{ email }}" required="required"/>
+        <input type="password" name="password" placeholder="Şifre" required="required"/>
+
+        <button type="submit" name="tamamla" class="button-3" style="background-color:#617A55;width:100%;" >
+    Tamamla
+             <img src="https://img.icons8.com/?size=512&id=83144&format=png" width="25">
+        </button>
+    </form>
+
+<form action="/kullanıcı-bilgileri" method="POST" style="margin:10px auto;">
+
+
+  <input type="hidden" name="post_id" value="0">
+
+<button type="submit" class="button-3" style="background-color:#F24C3D;width:100%;" >
+    İptal
+     <img src="https://img.icons8.com/?size=512&id=7703&format=png" width="25">
+</button>
+</form>
+
+</div>
+</div>
+
+</div>
+
+{% endblock %}

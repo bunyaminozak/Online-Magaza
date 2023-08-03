@@ -1,0 +1,519 @@
+{% extends "base_profil.html" %}
+
+{% block content %}
+
+
+
+
+<div style="background-color:white;"  class="container-fluid cardss" >
+
+    <div class="row " style="padding-right:-10px;margin-right: -22;" >
+
+             <ul class="list-group list-group-flush" style="height:30px;padding-right:10px;">
+<li class="list-group-item cardss" style="background: linear-gradient(144deg, rgba(255,242,85,1) 0%, rgba(225,234,241,1) 0%, rgba(124,136,139,1) 96%, rgba(95,103,105,1) 100%);height:30px;height:30px;">
+  <h4 style="color: black; height: 12px;font-size:16px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">{% if take == 'True' %}
+    Alınan Takas Tekflileri
+{% else %}
+    Verilen Takas Tekflileri
+{% endif %}
+</h4>
+</li>
+                 </ul>
+
+
+  <div class="col-12 css-deneme ">
+
+      <div class="container-md ürün-container" style="margin-top: -150px;">
+        <div class="container css-deneme_">
+            <div class="row profil-container " style="margin-left:0px;">
+
+                <div class="col-4" style="text-align:left;">
+            <h4>Teklifler</h4>
+</div>
+                  <div class="col-4">
+            <h4>Mesajlar</h4>
+</div>
+                   <div class="col-4">
+            <h4>İlanlar</h4>
+</div>
+
+    <hr >
+ </div>
+<div class="row aas">
+{% for a in (took_messages_list if take == 'True' else gave_messages_list) | reverse %}
+   {% for post in a[1:-3] %}
+
+
+{% if a[-2] == 'bekleniyor' %}
+      <div class="col-lg-4 col-md-4 mb-4 col-sm-4 col-4" style="height: 120px;">
+
+
+{% if post is not iterable and post is not string %}
+        <form action="/ilan-detay" method="POST" style="margin-top:5px ;">
+
+  <input type="hidden" name="post_id" value="{{ post.id }}">
+ <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+
+                <div class="card h-100 cardss">
+{% if post.images[0]  %}
+                    <div class="img-wrapper">
+                      <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" onclick="showImageInCarousel({{ loop.index0 }})">
+                    </div>
+{% else %}
+            <div class="img-wrapper">
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+            </div>
+{% endif %}
+                  <h6 class="card-title text-center" style="white-space: nowrap;overflow:hidden;padding-bottom:10px;padding-left:5px;text-overflow: ellipsis">{{ post.title }}</h6>
+                </div>
+              </a>
+</form>
+{% elif post is string  %}
+          {% set truncatedMessage = post[:15] ~ '...' if post|length > 5 else post %}
+          <button class="cardss" onclick="showPopup('{{ post }}')"  style="margin-bottom:15px;background-color:#D7E9B9;border-radius:7px;"><span class="postMessage">{{ truncatedMessage }}</span></button>
+
+ <!-- Buttons-->
+
+       {% if take == 'True' %}
+
+          <div class="row button-row" style="text-align:center;background-color:#9BABB8;">
+
+
+
+    <div class="col-4">
+ <a href="{{ url_for('takas_cevap',cevap='False', message_id = a[-1]) }}" >
+        <img class="button-deal reject" src="https://img.icons8.com/?size=512&id=fYgQxDaH069W&format=png" width="30">
+        </a>
+    </div>
+
+
+    <div class="col-4">
+ <a  id="openButton" style="cursor: pointer;transition: box-shadow 0.3s;" >
+        <img class="button-deal message" src="https://img.icons8.com/?size=512&id=108791&format=png" width="30">
+        </a>
+    </div>
+
+
+
+<div id="popup-form" class="popup">
+  <div class="popup-content">
+    <div class="posts-section">
+      <h3>Tekflif Mesajı Gönder</h3>
+      <div class="row justify-content-center">
+        {% for post in posts %}
+        <div class="col-lg-3 col-md-4 mb-4 col-sm-4 col-4" style="height: 120px;">
+          <div class="card h-100  jukul"   >
+            {% if post.images %}
+            <div class="img-wrapper">
+              <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Post Image" onclick="showImageInCarousel({{ loop.index0 }})">
+            </div>
+            {% endif %}
+              <h7 class="card-title text-center">{{ post.title }}</h7>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <textarea id="inputField" rows="10" placeholder="Mesaj Yazın..." style="width: 100%; resize: none;"></textarea>
+    <button id="submitButton" onclick="selectPost('{{ a[-1] }}')">Submit</button>
+    <button id="closeButton">Close</button>
+  </div>
+</div>
+
+
+
+<div class="col-4">
+ <a href="{{ url_for('takas_cevap',cevap='True', message_id = a[-1]) }}" >
+        <img class="button-deal accept" src="https://img.icons8.com/?size=512&id=pIPl8tqh3igN&format=png" width="30">
+        </a>
+    </div>
+</div>
+      {% else %}
+
+          <div class="row button-row" style="text-align:center;">
+    <div class="col-12">
+ <a href="{{ url_for('delete_takas' , selam=a[-1] , take=a[-2]) }}" >
+        <img class="button-deal reject" src="https://img.icons8.com/?size=512&id=fYgQxDaH069W&format=png" width="30">
+        </a>
+    </div>
+ </div>
+{% endif %}
+
+ {% endif %}
+
+      </div>
+
+
+    {% endif %}
+    <div id="popup" class="popup msg" style="display: none;">
+  <div class="popup-content msg">
+    <span class="close msg" onclick="closePopup()">&times;</span>
+    <div class="row">
+
+
+        <div class="col-5">
+
+             <ul class="list-group list-group-flush" style="height:30px;padding-right:10px;">
+<li class="list-group-item cardss" style="background: #2B2B2B;height:30px;;width:100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+  <h4 style="color: white; height: 12px;font-size:16px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">
+gönderen
+  </h4>
+</li>
+                 </ul>
+
+        </div>
+
+
+        <div class="col-7">
+              <ul class="list-group list-group-flush" style="height:30px;padding-right:10px;">
+<li class="list-group-item cardss" style="background: #2B2B2B;height:30px;">
+  <h4 style="color: white; height: 12px;font-size:16px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">
+mesaj
+  </h4>
+</li>
+                 </ul>
+
+
+        </div>
+     </div>
+
+      <hr>
+      <div class="row">
+            <div class="col-5" style=" padding-right: 20px;">
+<div class="" style="height:35px;padding:5px;">
+
+<form  name="form" action="/profil" method="post" enctype="multipart/form-data">
+<input name="names" style="display:none;" value="{{ a[0][1] }}">
+
+<input class="btn-info button-user cardss" value="{{ a[0][0] }}" type="submit" style="margin-bottom:0px;;width:100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;background: rgb(255,242,85);
+background: linear-gradient(144deg, rgba(255,242,85,1) 0%, rgba(225,234,241,1) 0%, rgba(124,136,139,1) 96%, rgba(95,103,105,1) 100%);color:black;">
+    </form>
+
+    </div>
+            </div>
+
+
+
+            <div class="col-7">
+                <div class="row cardss" style="height:85px;padding:5px;color:black;border:1px solid black;word-wrap: break-word;overflow-y: scroll;
+white-space: pre-wrap;border-radius:8px;background-color:#F5F5F5;margin-right:0px;">
+  <h6 id="messageText" style="
+    padding-left: 0px;
+    padding-right: 0px;
+"></h6>
+
+ </div>
+            </div>
+     </div>
+
+
+
+  </div>
+</div>
+    {% endfor %}
+
+<hr>
+  {% endfor %}
+
+</div>
+
+
+
+<!-- Add a hidden pop-up div -->
+
+
+
+
+ </div>
+      </div>
+    </div>
+
+                </div>
+
+
+</div>
+
+<br>
+<div class="cardss" style="background-color:grey;">
+<button id="showAcceptDiv" class="cardss" style="background-color:#5D9C59;">Kabul Edilen  Geçmiş</button>
+<button id="showRejectDiv" class="cardss" style="background-color:#DF2E38;">Red Edilen Geçmiş</button>
+
+<div style="background-color:#5C8984;" id="accept" class="container-fluid cardss ">
+
+
+
+
+    <div class="row " style="padding-right:-10px;margin-right: -22;" >
+
+             <ul class="list-group list-group-flush" style="height:30px;padding-right:10px;">
+<li class="list-group-item cardss" style="background: linear-gradient(to bottom, #ebebeb, #ccc);height:30px;">
+  <h4 style="color: black; height: 12px;font-size:16px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">{% if take == 'True' %}
+    Alınan Takas Tekflileri
+{% else %}
+    Verilen Takas Tekflileri
+{% endif %}
+</h4>
+</li>
+                 </ul>
+
+
+  <div class="col-12 css-deneme-choise cardss " style="background-color:#5C8984;">
+
+      <div class="container-md ürün-container" style="margin-top: -150px;">
+        <div class="container css-deneme_">
+            <div class="row profil-container " style="margin-left:0px;">
+
+                <div class="col-4" style="text-align:left;">
+            <h4>Teklifler</h4>
+</div>
+                  <div class="col-4">
+            <h4>Mesajlar</h4>
+</div>
+                   <div class="col-4">
+            <h4>İlanlar</h4>
+</div>
+ <hr>
+ </div>
+<div class="row aas" style="">
+  {% for a in (took_messages_list if take == 'True' else gave_messages_list) %}
+    {% for post in a[:-3] %}
+
+
+{% if a[-2] == 'True' %}
+
+      <div class="col-lg-4 col-md-4 mb-4 col-sm-4 col-4" style="height: 120px;width:120px;margin-top:30px;">
+
+   {% if post is not string %}
+
+
+        <form action="/ilan-detay" method="POST" style="margin-top:5px ;">
+
+  <input type="hidden" name="post_id" value="{{ post.id }}">
+ <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+
+                <div class="card h-100 cardss">
+{% if post.images[0]  %}
+                    <div class="img-wrapper">
+                      <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" onclick="showImageInCarousel({{ loop.index0 }})">
+                    </div>
+{% else %}
+            <div class="img-wrapper">
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+            </div>
+{% endif %}
+                  <h6 class="card-title text-center" style="white-space: nowrap;overflow:hidden;padding-bottom:7px;padding-top:2px;padding-left:5px;text-overflow: ellipsis">{{ post.title }}</h6>
+                </div>
+              </a>
+</form>
+        {% elif post is string  %}
+          {% set truncatedMessage = post[:15] ~ '...' if post|length > 5 else post %}
+          <button  onclick="showPopup('{{ post }}')"  style="margin-bottom:15px;"><span class="postMessage">{{ truncatedMessage }}</span></button>
+
+ <!-- Buttons-->
+
+<br>{{ a[-3]}}
+
+ {% endif %}
+
+      </div>
+
+
+    {% endif %}
+    {% endfor %}
+
+  {% endfor %}
+
+</div>
+</div>
+
+
+</div>
+</div>
+</div></div></div>
+
+<div style="background-color:#E06469;"  id="reject" class="container-fluid ">
+
+
+
+
+    <div class="row " style="padding-right:-10px;margin-right: -22;" >
+
+             <ul class="list-group list-group-flush " style="height:30px;padding-right:10px;">
+<li class="list-group-item cardss" style="background: linear-gradient(to bottom, #ebebeb, #ccc);height:30px;">
+  <h4 style="color: black; height: 12px;font-size:16px; font-weight: 500; font-family: 'IBM Plex Sans', sans-serif;">{% if take == 'True' %}
+    Alınan Takas Tekflileri
+{% else %}
+    Verilen Takas Tekflileri
+{% endif %}
+</h4>
+</li>
+                 </ul>
+
+
+  <div class="col-12 css-deneme css-deneme-choise cardss " style="background-color:#E06469;">
+
+      <div class="container-md ürün-container" style="margin-top: -150px;">
+        <div class="container css-deneme_">
+            <div class="row profil-container " style="margin-left:0px;">
+
+                <div class="col-4" style="text-align:left;">
+            <h4>Teklifler</h4>
+</div>
+                  <div class="col-4">
+            <h4>Mesajlar</h4>
+</div>
+                   <div class="col-4">
+            <h4>İlanlar</h4>
+</div>
+
+
+ </div>
+<div class="row aas" style="">
+  {% for a in (took_messages_list if take == 'True' else gave_messages_list) %}
+    {% for post in a[:-3] %}
+
+
+{% if a[-2] == 'False' %}
+
+      <div class="col-lg-4 col-md-4 mb-4 col-sm-4 col-4" style="height: 100px;margin-top:30px;">
+
+   {% if post is not string %}
+
+
+         <form action="/ilan-detay" method="POST" style="margin-top:5px ;">
+
+  <input type="hidden" name="post_id" value="{{ post.id }}">
+ <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+
+                <div class="card h-100 cardss">
+{% if post.images[0]  %}
+                    <div class="img-wrapper">
+                      <img src="data:image/png;base64,{{ post.images[0].data|b64encode }}" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" onclick="showImageInCarousel({{ loop.index0 }})">
+                    </div>
+{% else %}
+            <div class="img-wrapper">
+                      <img src="https://img.icons8.com/?size=512&id=j1UxMbqzPi7n&format=png" class="card-img-top img-fluid" alt="Fotoğraf Bulunamadı" >
+            </div>
+{% endif %}
+                  <h6 class="card-title text-center" style="white-space: nowrap;overflow:hidden;padding-bottom:5px;">{{ post.title }}</h6>
+                </div>
+              </a>
+</form>
+        {% elif post is string  %}
+          {% set truncatedMessage = post[:15] ~ '...' if post|length > 5 else post %}
+          <button onclick="showPopup('{{ post }}')"  style="margin-bottom:15px;"><span class="postMessage">{{ truncatedMessage }}</span></button>
+
+ <!-- Buttons-->
+
+<br>{{ a[-3]}}
+
+ {% endif %}
+
+      </div>
+
+
+    {% endif %}
+    {% endfor %}
+    <hr>
+  {% endfor %}
+
+</div>
+</div>
+
+
+</div>
+</div>
+</div></div></div>
+
+
+<script>
+
+  const showAcceptButton = document.getElementById('showAcceptDiv');
+  const showRejectButton = document.getElementById('showRejectDiv');
+  const acceptDiv = document.getElementById('accept');
+  const rejectDiv = document.getElementById('reject');
+
+  // Set initial visibility of div elements
+  acceptDiv.style.display = 'none';
+  rejectDiv.style.display = 'none';
+
+  // Add click event listeners to the buttons
+  showAcceptButton.addEventListener('click', function() {
+    toggleVisibility(acceptDiv);
+    hideElement(rejectDiv);
+  });
+
+  showRejectButton.addEventListener('click', function() {
+    toggleVisibility(rejectDiv);
+    hideElement(acceptDiv);
+  });
+
+  // Function to toggle the visibility of an element
+  function toggleVisibility(element) {
+    if (element.style.display === 'none') {
+      element.style.display = 'block';
+    } else {
+      element.style.display = 'none';
+    }
+  }
+
+  // Function to hide an element
+  function hideElement(element) {
+    element.style.display = 'none';
+  }
+ function showPopup(message) {
+    document.getElementById("messageText").innerText = message;
+    document.getElementById("popup").style.display = "block";
+  }
+
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+  }
+  let selectedPost = '';
+
+  function selectPost(title) {
+    selectedPost = title;
+    console.log('Selected Post:', selectedPost);
+  }
+
+  document.getElementById('submitButton').addEventListener('click', function() {
+    const formData = document.getElementById('inputField').value;
+    console.log('Selected Post:', selectedPost);
+    console.log('Form Data:', formData);
+
+    // Make an AJAX request to send the selected post and form data to the server
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/takas_cevap', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        console.log('Response:', xhr.responseText);
+        // Add any additional logic for handling the server response here
+      }
+    };
+    const data = JSON.stringify({
+      post: selectedPost,
+      form: formData
+    });
+    xhr.send(data);
+
+    // Reset selected post and form data
+    selectedPost = '';
+    document.getElementById('inputField').value = '';
+  });
+
+  document.getElementById('openButton').addEventListener('click', function() {
+    document.getElementById('popup-form').style.display = 'block';
+  });
+
+  document.getElementById('closeButton').addEventListener('click', function() {
+    document.getElementById('popup-form').style.display = 'none';
+    selectedPost = '';
+    document.getElementById('inputField').value = '';
+  });
+
+
+</script>
+
+
+{% endblock %}

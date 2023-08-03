@@ -1,0 +1,358 @@
+
+<html>
+
+<head>
+
+
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <title>Takas-Site</title>
+      <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/6895/6895182.png">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+</head>
+
+<body style="overflow-x: hidden;background-color:#D8D8D8; ">
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<div class="container-sm " style="background-color:#F7F7F7;padding-left;0px;min-height:85%;">
+<ul class="nav nav-pills flex-column ">
+      <li class="nav-item cardss">
+<a href="/kategori-" class="nav-link active side-bar" aria-current="page" style="background-color:#2D2727;">
+
+        </a>
+
+      </li>
+    </ul>
+<nav class="navbar fixed-top  " style="height:70px;background-color:#2B2B2B;">
+
+  <div class="container-sm" style="margin-top:-10px">
+    <span class="navbar-brand sm-0 " style="margin-left:5%;"><a href="/" style="color:black;"> <img class="logo-image" width="60" src="https://cdn-icons-png.flaticon.com/512/6895/6895182.png"> </a></span>
+
+      <form class="d-flex" role="search" style="color:white;" action="{{ url_for('home') }}" method="GET">
+
+ <input class="form-control me-2 search-bar" name="search" type="search" placeholder="Search" aria-label="Search" style="background-color:#EFF5F5;color:black;">
+      <span>  <button type="submit" class="btn btn-info search-button" style="height:38px;">
+    <img src="https://img.icons8.com/?size=512&id=47830&format=png" width="25">
+  </button></span>
+
+    </form>
+
+
+
+       <span class="navbar-brand mb-3 mb-lg-1 navbar-profile-img"><a class="nav-link"  href="{{ url_for( 'ilan' , posts=posts)  if is_user else '/login_choise' }}">
+          <img class="login-image" src="https://img.icons8.com/?size=512&id=2yC9SZKcXDdX&format=png" width="50" style="background-color:#F9F5F6;border-radius:40px;">
+      </a></span>
+       <span class="navbar-brand mb-3 mb-lg-1 navbar-profile-img"><a  class="nav-link" href="{{ '/choose_category' if is_user else '/login_choise' }}    ">
+          <img class="login-image " src="https://cdn-icons-png.flaticon.com/512/8371/8371357.png" width="50" >
+      </a></span>
+
+</nav>
+
+
+
+
+<div class="container-fluid top-bar fixed-bottom my-bottom-bar" id="top-bar">
+
+
+    <div class="container-sm w-100 p-1 pb-1 d-flex justify-content-center" >
+        <div class="row">
+
+<div class="col-1" style="margin-left:55px;margin-right:25px;"  >
+<span><a href="/"><img style="background-color:;border-radius:10px;" src="	https://cdn-icons-png.flaticon.com/512/553/553376.png
+"  width="35"></a></span>
+    </div>
+
+        <div class="col-1" style="margin-right:25px;" >
+<span><a href="{{ '/Takas-Tekflifleri?take=True'   if is_user else '/login_choise' }}"><img style="background-color:;border-radius:10px;" src="https://img.icons8.com/external-goofy-solid-kerismaker/256/external-Deal-business-goofy-solid-kerismaker.png" width="35"></a></span>
+
+    </div>
+
+    <div class="col-1" style="margin-right:25px;">
+<span><a href="{{ '/choose_category' if is_user else '/login_choise' }}">
+
+<img class="" src="https://cdn-icons-png.flaticon.com/512/8371/8371357.png" width="37" style="">
+</a></span>
+    </div>
+
+                    <div class="col-1" style="margin-right:25px;" >
+<span><a href="{{ url_for( 'sessions' )  if is_user else '/login_choise' }}"><img style="background-color:;border-radius:10px;" src="	https://cdn-icons-png.flaticon.com/512/3721/3721843.png" width="35"></a></span>
+
+    </div>
+
+
+        <div class="col-1"  >
+<span><a href="{{ url_for( 'ilan' )  if is_user else '/login_choise' }}"><img style="background-color:;border-radius:10px;" src="	https://cdn-icons-png.flaticon.com/512/64/64572.png" width="35"></a></span>
+
+    </div>
+
+
+
+
+</div>
+
+    </div>
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+<ul class="nav nav-pills flex-column " style="background-color:red;margin-top:50px;">
+      <li class="nav-item cardss">
+<a href="/kategori-" class="nav-link active side-bar" aria-current="page" style="background-color:black;">
+
+        </a>
+
+      </li>
+    </ul>
+
+
+<div class="container-lg container-base-profil" >
+
+    <div class="row ">
+
+
+
+<div class="col-lg-4 col-md-4 col-sm-4  col-8 my-diva" >
+  <!-- Your navigation list code -->
+
+    <div class="text-white " style="width: 230px;background-color:#B2B2B2">
+
+
+    <a href="/" class=" text-white text-decoration-none">
+<p style="mprofil-mobil-marginargin-bottom:100px;"></p>
+    </a>
+
+
+<div style="padding:1px;background-color:#2B2B2B;border-radius:10px;">
+        <button  class=" button-3 cardss ilan-kategori-button" >
+            <img src="https://img.icons8.com/?size=512&id=41203&format=png" width="25"> kategori
+
+        </button>
+
+</div>
+
+<div class="ilan-sidebar">
+
+    <br class="kategori-br" >
+
+    <ul class="nav nav-pills flex-column  " style="margin-bottom:10px">
+      <li class="nav-item  ">
+        <a   class="nav-link active side-bar cardss" aria-current="page" style="padding-right:40px;background-color:#454545;color:black;font-weight:500;">
+          <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+<img src="https://img.icons8.com/?size=512&id=M1W98LVmKO7o&format=png" style="background-color:white;border-radius:6px;" width="30">
+        <span style="margin-right:0px;color:white" >İlanlarım</span>
+
+        </a>
+      </li>
+    </ul>
+
+   <ul class="nav nav-pills flex-column ">
+
+       <a href="{{ url_for( 'ilan')  }}" class="nav-link active side-bar " aria-current="page" style="padding-right:50px;margin:7px;background-color:white;">
+          <svg class="bi " width="10" height="0"><use xlink:href="#home" ></use></svg>
+
+  <span style="font-size:16px;margin-right:-20px;color:black;">Yayında Olan</span>
+        </a>
+
+    </ul>
+           <ul class="nav nav-pills flex-column ">
+
+       <a href="{{ url_for( 'ilan' , pasif=True)  }}" class="nav-link active side-bar " aria-current="page" style="padding-right:50px; height:50px;margin:7px;background-color:white;">
+          <svg class="bi " width="10" height="0"><use xlink:href="#home" ></use></svg>
+
+  <span style="font-size:16px;margin-right:-20px;color:black;">Yayında Olmayan</span>
+        </a>
+
+    </ul>
+
+  <hr style="color:white;border: 2px solid white;">
+
+    <ul class="nav nav-pills flex-column " style="margin-bottom:10px">
+          <li class="nav-item">
+        <a class="nav-link active side-bar cardss " aria-current="page" style="margin-left:0px;background-color:#454545;color:black;font-weight:500;">
+          <svg class="bi " width="1" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://img.icons8.com/?size=512&id=oUBmgLO68Uea&format=png" width="30" style="background-color:white;border-radius:10px;"> <span style="margin-right:20px;margin:7px;color:white">Tekliflerim</span>
+        </a>
+      </li>
+    </ul>
+
+
+
+   <ul class="nav nav-pills flex-column ">
+
+       <a href="{{ url_for('takas', take='True') }}" class="nav-link active side-bar " aria-current="page" style="padding-right:50px;margin:7px;background-color:white;">
+          <svg class="bi " width="10" height="0"><use xlink:href="#home" ></use></svg>
+
+  <span style="font-size:16px;margin-right:-20px;color:black;">Alınlan Teklifler</span>
+        </a>
+
+
+
+    </ul>   <ul class="nav nav-pills flex-column ">
+
+        <a href="{{ url_for('takas', take='False') }}" class="nav-link active side-bar " aria-current="page" style="padding-right:50px;height:50px;margin:7px;background-color:white;">
+
+
+  <span style="font-size:16px;margin-right:-20px;color:black;">Verilen Teklifler</span>
+        </a>
+
+    </ul>
+
+
+  <hr style="color:white;border: 2px solid white;">
+
+
+
+ <ul class="nav nav-pills flex-column " style="margin-bottom:10px">
+          <li class="nav-item">
+        <a class="nav-link active side-bar cardss " aria-current="page" style="padding-right:40px;background-color:#454545;color:black;font-weight:500;">
+          <svg class="bi " width="1" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://img.icons8.com/?size=512&id=O2jILzM6obXx&format=png" width="30" style="background-color:white;border-radius:10px;"> <span style="color:white;margin-right:10px;">Mesajlar</span>
+        </a>
+      </li>
+    </ul>
+
+
+   <ul class="nav nav-pills flex-column " style="margin-bottom:20px;">
+
+       <a href="{{ url_for('sessions' ) }}"  class="nav-link active side-bar " aria-current="page" style="padding-right:50px;margin:7px;background-color:white;">
+          <svg class="bi " width="10" height="0"><use xlink:href="#home" ></use></svg>
+
+  <span style="font-size:16px;margin-right:-20px;color:black;">Mesajlar</span>
+        </a>
+ </ul>
+
+
+
+
+
+
+
+   <hr style="color:white;border: 2px solid white;">
+
+
+ <ul class="nav nav-pills flex-column " style="margin-bottom:15px">
+        <li class="nav-item">
+        <a  class="nav-link active side-bar cardss" aria-current="page" style="padding-right:40px;background-color:#454545;color:black;font-weight:500;">
+          <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://img.icons8.com/?size=512&id=47723&format=png" width="30" style="background-color:white;border-radius:10px;"> <span style="margin-right:10px;margin:7px;color:white">Profil</span>
+        </a>
+      </li>
+
+
+    </ul>
+
+        <ul class="nav nav-pills flex-column " style="background-color:white; margin:7px;border-radius:7px">
+
+
+<form action="/kullanıcı-bilgileri" method="POST" style="margin:10px auto;">
+
+
+  <input type="hidden" name="post_id" value="0">
+
+  <a onclick="this.parentNode.submit();" style="cursor: pointer;">
+        <span style="font-size:16px;color:black;" >Üyelik Bilgilerim</span>
+  </a>
+</form>
+
+    </ul>
+
+   <hr style="color:white;border: 2px solid white;">
+
+ <ul class="nav nav-pills flex-column ">
+        <li class="nav-item">
+        <a href="{{ url_for('logout') }}" class="nav-link active side-bar cardss" aria-current="page" style="padding-right:40px;background-color:#CD1818;color:white;font-weight:500;">
+          <svg class="bi " width="150" height="0"><use xlink:href="#home" ></use></svg>
+
+        <img src="https://img.icons8.com/?size=512&id=8119&format=png" width="30"> <span style="margin-right:10px;">Hesaptan Çık</span>
+        </a>
+      </li>
+
+
+    </ul>
+
+</div>
+
+
+  </div>
+      </div>
+
+
+
+
+
+
+
+
+<script>
+
+    const button = document.querySelector('.ilan-kategori-button');
+    const sidebar = document.querySelector('.ilan-sidebar');
+
+    button.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+
+</script>
+
+    <div class="col-lg-8 col-md-8 col-sm-0 col-12 profil-container-bilgi">
+
+<p style="margin-bottom:70px;"></p>
+
+<div class="container-fluid base-profil-container" style="background-color:white;">
+
+
+       {% block content %}
+
+
+
+       {% endblock %}
+
+    </div>
+  </div>
+</div>
+    <br><h4 style="visibility:hidden;">asdsa</h4>
+</div>
+    </div>
+
+
+
+
+
+<script>
+
+if ( window.history.replaceState ) {
+
+window.history.replaceState( null, null, window.location.href );
+
+}
+
+</script>
+
+
+
+
+<div style="margin-bottom:-30px;">
+{% include 'footer.html' %}
+    <br class="mobile-br">
+    </div>
+
+
+
+</body>
+
+</html>
