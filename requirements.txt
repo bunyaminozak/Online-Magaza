@@ -17,9 +17,6 @@ comtypes==1.1.14
 customtkinter==5.1.2
 darkdetect==0.8.0
 distlib==0.3.7
-Django==4.2.3
-django-bootstrap5==23.3
-django-crispy-forms==2.0
 dnspython==2.3.0
 dominate==2.5.2
 et==0.0.2
