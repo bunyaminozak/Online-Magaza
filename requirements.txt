@@ -61,7 +61,6 @@ PyMsgBox==1.0.9
 pynput==1.7.6
 PyPDF2==3.0.1
 pyperclip==1.8.2
-pypiwin32==223
 PyRect==0.2.0
 PyScreeze==0.1.28
 PySocks==1.7.1
